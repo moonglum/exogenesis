@@ -1,5 +1,6 @@
 require 'exogenesis/abstract_package_manager'
 
+# Links all files in the directory `tilde` to your home directory
 class Dotfile < AbstractPackageManager
   def install
     file_names.each { |dotfile| link_file dotfile }

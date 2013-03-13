@@ -1,5 +1,6 @@
 require 'exogenesis/abstract_package_manager'
 
+# Installs and removes OhMyZSH
 class OhMyZSH < AbstractPackageManager
   def install
     print "Cloning Oh-my-zsh..."

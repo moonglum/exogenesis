@@ -1,6 +1,10 @@
 require 'exogenesis/abstract_package_manager'
 
+# Manages the Vim Package Manager Vundle
 class Vundle < AbstractPackageManager
+  # The dependencies are read from you Vim files
+  # It creates a `~/.vim` folder and clones Vundle.
+  # Then it runs BundleInstall in Vim.
   def install
     create_vim_folder
     clone
