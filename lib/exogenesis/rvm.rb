@@ -1,6 +1,6 @@
 require 'exogenesis/abstract_package_manager'
 
-# Installs the Ruby Version Manager RVM
+# Manages the Ruby Version Manager RVM
 class Rvm < AbstractPackageManager
   # Expects an array of rubies as Strings you want to install
   def initialize(rubies)

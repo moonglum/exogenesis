@@ -1,6 +1,6 @@
 require 'exogenesis/abstract_package_manager'
 
-# Installs and removes OhMyZSH
+# Installs and Removes Fonts
 class Fonts < AbstractPackageManager
 
   # This copies fonts from the dotfiles repo

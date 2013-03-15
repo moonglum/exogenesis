@@ -1,7 +1,14 @@
 require 'exogenesis/abstract_package_manager'
 
-# Links all files in the directory `tilde` to your home directory
+# Links all files in the given directory to your home directory
 class Dotfile < AbstractPackageManager
+  # Give the directory name relative to the current directory
+  # Defaults to "tilde", because you should call this directory
+  # "tilde". (To be honest, I don't care how you call it.)
+  def initialize(directory_name = "tilde")
+    @directory_name = directory_name
+  end
+
   def install
     file_names.each { |dotfile| link_file dotfile }
   end
@@ -13,7 +20,7 @@ class Dotfile < AbstractPackageManager
   private
 
   def link_file(file_name)
-    original = File.join Dir.pwd, "tilde", file_name.to_s
+    original = File.join Dir.pwd, @directory_name, file_name.to_s
     target = File.join Dir.home, ".#{file_name}"
 
     if File.symlink? target
@@ -36,10 +43,10 @@ class Dotfile < AbstractPackageManager
   end
 
   def file_names
-    file_names = Dir.entries(File.join(Dir.pwd, "tilde"))
+    file_names = Dir.entries(File.join(Dir.pwd, @directory_name))
 
     file_names.delete_if do |filename|
-      filename[0] == "."
+      filename.start_with? "."
     end
   end
 end
