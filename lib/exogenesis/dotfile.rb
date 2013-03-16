@@ -1,4 +1,5 @@
 require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/executor'
 
 # Links all files in the given directory to your home directory
 class Dotfile < AbstractPackageManager
@@ -7,13 +8,16 @@ class Dotfile < AbstractPackageManager
   # "tilde". (To be honest, I don't care how you call it.)
   def initialize(directory_name = "tilde")
     @directory_name = directory_name
+    @executor = Executor.instance
   end
 
   def install
+    @executor.start_section "Installing Dotfiles"
     file_names.each { |dotfile| link_file dotfile }
   end
 
   def teardown
+    @executor.start_section "Tearing town Dotfiles"
     file_names.each { |dotfile| unlink_file dotfile }
   end
 
@@ -24,10 +28,9 @@ class Dotfile < AbstractPackageManager
     target = File.join Dir.home, ".#{file_name}"
 
     if File.symlink? target
-      puts "#{file_name} already linked"
+      @executor.skip_task "Linking #{file_name}", "Already linked"
     else
-      puts "Linking #{file_name}"
-      `ln -s #{original} #{target}`
+      @executor.execute "Linking #{file_name}", "ln -s #{original} #{target}"
     end
   end
 
@@ -35,10 +38,9 @@ class Dotfile < AbstractPackageManager
     target = File.join Dir.home, ".#{file_name}"
 
     if File.symlink? target
-      `rm #{target}`
-      puts "Symlink for #{target} removed"
+      @executor.execute "Unlink #{target}", "rm #{target}"
     else
-      puts "No symlink for #{target} existed."
+      @executor.skip_task "Unlink #{target}", "Link not found"
     end
   end
 
