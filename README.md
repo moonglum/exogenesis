@@ -17,7 +17,20 @@ Every class has the following methods (with the exception of `initialize` they a
 
 Not all package managers will need all of the methods. Just do not implement them.
 
+## Supported Managers
+
+* **Dotfile:** Link/Unlink your dotfiles
+* **Fonts:** Manage your fonts
+* **Homebrew:** Install/Uninstall/Update Homebrew and its packages
+* **OhMyZSH:** Install/Uninstall OhMyZSH
+* **RVM:** Install/Uninstall/Update RVM and Rubies
+* **Vundle:** Install/Uninstall/Update Vundle and its packages
+
 ## Contributing
 
 Additions of new classes are more than welcome, even if they are complimentary to the ones already provided. If you want to contribute a new class, please see the interface section and inherit from `AbstractPackageManager`.
 Your code has to work on Ruby 1.8.7, because the dotfile installers should work on Mac OS without installing a new Ruby version (and Mac OS still ships with 1.8.7)
+
+So far, the following people have contributed to the project:
+
+* Bodo Tasche aka bitboxer
