@@ -1,4 +1,4 @@
-require 'exogenesis/abstract_package_manager'
+require 'exogenesis/support/abstract_package_manager'
 
 # Links all files in the given directory to your home directory
 class Dotfile < AbstractPackageManager

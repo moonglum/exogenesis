@@ -1,4 +1,4 @@
-require 'exogenesis/abstract_package_manager'
+require 'exogenesis/support/abstract_package_manager'
 
 # Manages the Ruby Version Manager RVM
 class Rvm < AbstractPackageManager

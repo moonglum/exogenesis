@@ -1,4 +1,4 @@
-require 'exogenesis/abstract_package_manager'
+require 'exogenesis/support/abstract_package_manager'
 
 # Installs and Removes Fonts
 class Fonts < AbstractPackageManager

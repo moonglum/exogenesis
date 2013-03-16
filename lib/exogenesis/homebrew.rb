@@ -1,4 +1,4 @@
-require 'exogenesis/abstract_package_manager'
+require 'exogenesis/support/abstract_package_manager'
 
 # Manages Homebrew - the premier package manager for Mac OS
 class Homebrew < AbstractPackageManager

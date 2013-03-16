@@ -1,4 +1,4 @@
-require 'exogenesis/abstract_package_manager'
+require 'exogenesis/support/abstract_package_manager'
 
 # Manages the Vim Package Manager Vundle
 class Vundle < AbstractPackageManager
