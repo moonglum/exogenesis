@@ -10,7 +10,7 @@ class OhMyZSH < AbstractPackageManager
     @executor = Executor.instance
   end
 
-  def install
+  def setup
     @executor.start_section "Oh-My-ZSH"
 
     if File.exists? target
