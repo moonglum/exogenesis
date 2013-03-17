@@ -1,32 +1,58 @@
 require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/executor'
 
 # Manages the Ruby Version Manager RVM
 class Rvm < AbstractPackageManager
   # Expects an array of rubies as Strings you want to install
   def initialize(rubies)
     @rubies = rubies
+    @executor = Executor.instance
   end
 
   def install
-    @rubies.each do |ruby|
-      print "Installing #{ruby}..."
-      status = `rvm install #{ruby} --with-gcc=gcc-4.2`
+    @executor.start_section "RVM"
 
-      if status.include? "Already installed"
-        puts "Already Installed!"
-      else
-        puts "Installed!"
-      end
+    @rubies.each do |ruby|
+      install_ruby ruby
     end
   end
 
   def update
-    puts "Updating RVM"
-    `rvm get head`
-    `rvm reload`
+    @executor.start_section "RVM"
+    @executor.execute_interactive "Update", "rvm get head"
+    @executor.execute "Reload", "rvm reload"
+
+    current = installed_versions
     @rubies.each do |ruby|
-      print "Upgrading #{ruby}..."
-      system "rvm upgrade #{ruby}"
+      if current[ruby].nil?
+        install_ruby ruby
+      else
+        update_ruby current[ruby], ruby
+      end
     end
+  end
+
+private
+
+  def install_ruby(ruby)
+    @executor.execute "Installing #{ruby}", "rvm install #{ruby} --with-gcc=gcc-4.2" do |output|
+      raise TaskSkipped.new("Already installed") if output.include? "Already Installed"
+    end
+  end
+
+  def update_ruby(old_ruby, new_ruby)
+    @executor.execute "Upgrading #{new_ruby}", "rvm upgrade #{old_ruby} #{new_ruby} --force --with-gcc=gcc-4.2" do |output, error_output|
+      raise TaskSkipped.new("Already Up to Date") if error_output.include? "are the same"
+    end
+  end
+
+  def installed_versions
+    result = {}
+    @executor.execute "Getting Installed Versions", "rvm list" do |output|
+      output.scan(/((\w+-[\w\.]+)(-(p\d+))?)/).each do |ruby|
+        result[ruby[1]] = ruby[0]
+      end
+    end
+    result
   end
 end
