@@ -1,4 +1,5 @@
 require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/executor'
 
 # Installs and removes OhMyZSH
 class OhMyZSH < AbstractPackageManager
@@ -6,29 +7,32 @@ class OhMyZSH < AbstractPackageManager
   # as an argument. The default is of course 'robbyrussell'.
   def initialize(username = "robbyrussell")
     @repo = "git://github.com/#{username}/oh-my-zsh.git"
+    @executor = Executor.instance
   end
 
   def install
-    print "Cloning Oh-my-zsh..."
-    target = File.join Dir.home, ".oh-my-zsh"
+    @executor.start_section "Oh-My-ZSH"
 
     if File.exists? target
-      puts "Oh-my-zsh already exists"
+      @executor.skip_task "Cloning", "Already Exists"
     else
-      `git clone #{@repo} #{target}`
-      puts "Cloned!"
+      @executor.execute_interactive "Cloning", "git clone #{@repo} #{target}"
     end
   end
 
   def teardown
-    print "Removing Oh-my-zsh..."
-    target = File.join Dir.home, ".oh-my-zsh"
+    @executor.start_section "Oh-My-ZSH"
 
     if File.exists? target
-      `rm -r #{target}`
-      puts "Removed!"
+      @executor.execute_interactive "Removing", "rm -r #{target}"
     else
-      puts "Did not exist"
+      @executor.skip_task "Removing", "Did not exist"
     end
+  end
+
+  private
+
+  def target
+    File.join Dir.home, ".oh-my-zsh"
   end
 end
