@@ -1,4 +1,5 @@
 require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/abstract_package_manager'
 require 'exogenesis/support/executor'
 
 # Installs and removes OhMyZSH
@@ -12,21 +13,15 @@ class OhMyZSH < AbstractPackageManager
 
   def setup
     @executor.start_section "Oh-My-ZSH"
-
-    if File.exists? target
-      @executor.skip_task "Cloning", "Already Exists"
-    else
-      @executor.execute_interactive "Cloning", "git clone #{@repo} #{target}"
+    @executor.execute "Cloning", "git clone #{@repo} #{target}" do |output, error_output|
+      raise TaskSkipped.new("Already exists") if error_output.include? "already exists"
     end
   end
 
   def teardown
     @executor.start_section "Oh-My-ZSH"
-
-    if File.exists? target
-      @executor.execute_interactive "Removing", "rm -r #{target}"
-    else
-      @executor.skip_task "Removing", "Did not exist"
+    @executor.execute "Removing", "rm -r #{target}" do |output, error_output|
+      raise TaskSkipped.new("Folder not found") if error_output.include? "No such file or directory"
     end
   end
 
