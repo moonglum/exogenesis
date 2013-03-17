@@ -9,15 +9,18 @@ class Fonts < AbstractPackageManager
   # the repo if you want.
   def initialize(basepath = "fonts")
     @basepath = basepath
+    @executor = Executor.instance
   end
 
   def install
+    @executor.start_section "Installing Fonts"
     collect_fonts do |file|
       install_font(file)
     end
   end
 
   def teardown
+    @executor.start_section "Tearing town Fonts"
     collect_fonts do |file|
       uninstall_font(File.basename(file))
     end
@@ -35,12 +38,10 @@ class Fonts < AbstractPackageManager
   end
 
   def install_font(file)
-    puts "Installing #{File.basename file}"
-    FileUtils.cp file, File.join(ENV['HOME'], "Library/Fonts", File.basename(file))
+    @executor.execute "Copying #{File.basename file}", "cp #{file} #{File.join(ENV['HOME'], "Library/Fonts", File.basename(file))}"
   end
 
   def uninstall_font(file)
-   puts "Uninstalling #{file}"
-   FileUtils.rm File.join(ENV['HOME'], "Library/Fonts", file)
+   @executor.execute "Deleting #{File.basename file}", "rm #{File.join(ENV['HOME'], "Library/Fonts", File.basename(file))}"
   end
 end
