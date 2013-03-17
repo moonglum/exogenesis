@@ -2,6 +2,8 @@
 
 A collection of classes that help you install, update and teardown package managers and other things useful for your dotfiles. It's something like a meta package manager (package manager is the wrong word... still searching for a better one). You can use it to install/update/teardown your dotfiles or to create a single `update` command to update everything on your computer.
 
+It creates a beautiful output if you want it to (see Configuration). For a little [demonstration](http://ascii.io/a/2491) see this asciicast of my `rake install` running on my (already installed :wink:) system.
+
 **Please read the source code of this gem before you use it. I give no guarantee that this will not destroy your computer entirely.**
 
 ## Configuration
