@@ -9,6 +9,24 @@ class Homebrew < AbstractPackageManager
   def initialize(brews)
     @brews = brews
     @executor = Executor.instance
+    @install_script = "https://raw.github.com/mxcl/homebrew/go"
+    @teardown_script = "https://gist.github.com/mxcl/1173223/raw/a833ba44e7be8428d877e58640720ff43c59dbad/uninstall_homebrew.sh"
+  end
+
+  def setup
+    @executor.start_section "Homebrew"
+    # Feels wrong to call out to the terminal to start up a new Ruby oO
+    @executor.execute_interactive "Install", "ruby -e \"$(curl -fsSL #{@install_script})\""
+  end
+
+  def cleanup
+    @executor.start_section "Homebrew"
+    @executor.execute "Clean Up", "brew cleanup"
+  end
+
+  def teardown
+    @executor.start_section "Homebrew"
+    @executor.execute "Teardown", "\\curl -L #{@teardown_script} | bash -s"
   end
 
   def update
