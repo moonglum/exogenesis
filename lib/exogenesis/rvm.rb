@@ -9,6 +9,16 @@ class Rvm < AbstractPackageManager
     @executor = Executor.instance
   end
 
+  def setup
+    @executor.start_section "RVM"
+    @executor.execute_interactive "Setup", "\\curl -L https://get.rvm.io | bash -s"
+  end
+
+  def teardown
+    @executor.start_section "RVM"
+    @executor.execute_interactive "Teardown", "rvm implode"
+  end
+
   def install
     @executor.start_section "RVM"
 
