@@ -19,7 +19,7 @@ class Vundle < AbstractPackageManager
     end
   end
 
-  # Runs BundleInstall in Vim.
+  # Runs BundleInstall in Vim
   def install
     @executor.start_section "Vundle"
     @executor.execute_interactive "Install", "vim +BundleInstall\! +qall"
@@ -38,6 +38,12 @@ class Vundle < AbstractPackageManager
   def update
     @executor.start_section "Vundle"
     @executor.execute_interactive "Updating Vim Bundles", "vim +BundleUpdate +qall"
+  end
+
+  # Runs BundleClean in Vim
+  def cleanup
+    @executor.start_section "Vundle"
+    @executor.execute_interactive "Cleaning", "vim +BundleClean\! +qall"
   end
 
   private
