@@ -6,6 +6,41 @@ It creates a beautiful output if you want it to (see Configuration). For a littl
 
 **Please read the source code of this gem before you use it. I give no guarantee that this will not destroy your computer entirely.**
 
+## How to use it
+
+The current best practice is to create a Rakefile in your dotfile repo that looks something like this:
+
+```ruby
+#!/usr/bin/env rake
+require "yaml"
+require "rubygems"
+require "exogenesis"
+
+# Configure your output here (see Configuration)
+Output.fancy
+
+# Load the lists of brews you want to install for example
+packages = YAML.load_file "packages.yml"
+
+# Create an array of all the initialized package managers
+package_managers = [
+  Dotfile.new,
+  OhMyZSH.new("moonglum"),
+  Homebrew.new(packages["brews"]),
+  Vundle.new,
+  Rvm.new(packages["rubies"])
+]
+
+desc "Setup the dotfiles"
+task :setup do
+  package_managers.each(&:setup)
+end
+
+# ...and corresponding Rake tasks for the other methods
+```
+
+You can find a list of real-world usage of this gem [here](https://github.com/moonglum/exogenesis/wiki/List-of-Users). There are links to the actual install files there, so you can see how they did it.
+
 ## Configuration
 
 You can configure the output of Exogenesis via the `Output` class:
