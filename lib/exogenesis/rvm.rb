@@ -21,28 +21,26 @@ class Rvm < AbstractPackageManager
 
   def install
     @executor.start_section "RVM"
-
-    @rubies.each do |ruby|
-      install_ruby ruby
-    end
+    @rubies.each { |ruby| install_ruby ruby }
   end
 
   def update
     @executor.start_section "RVM"
     @executor.execute_interactive "Update", "rvm get head"
     @executor.execute "Reload", "rvm reload"
-
     current = installed_versions
-    @rubies.each do |ruby|
-      if current[ruby].nil?
-        install_ruby ruby
-      else
-        update_ruby current[ruby], ruby
-      end
-    end
+    @rubies.each { |ruby| install_or_update_ruby current, ruby }
   end
 
 private
+
+  def install_or_update_ruby(current, ruby)
+    if current[ruby].nil?
+      install_ruby ruby
+    else
+      update_ruby current[ruby], ruby
+    end
+  end
 
   def install_ruby(ruby)
     @executor.execute "Installing #{ruby}", "rvm install #{ruby} --with-gcc=gcc-4.2" do |output|
