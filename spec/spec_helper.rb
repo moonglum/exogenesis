@@ -13,4 +13,5 @@ Dir[File.expand_path('../{support,shared}/**/*.rb', __FILE__)].each do |file|
 end
 
 RSpec.configure do |config|
+  config.include ExecutorDouble
 end

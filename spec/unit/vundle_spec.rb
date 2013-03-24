@@ -2,15 +2,7 @@ require "spec_helper"
 require "exogenesis/vundle"
 
 describe Vundle do
-  let(:executor) {
-    executor = double
-    executor.stub(:start_section)
-    executor.stub(:execute)
-    executor.stub(:execute_interactive)
-    executor.stub(:create_path_in_home)
-    executor.stub(:get_path_in_home)
-    executor
-  }
+  let(:executor) { executor_double }
 
   subject { Vundle.new(executor) }
 

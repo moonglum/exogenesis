@@ -6,6 +6,9 @@ require "exogenesis/support/task_skipped"
 
 # Executor is a Singleton. Get the instance
 # via `Executor.instance`
+# If you add a public method here, please also
+# add it to the `executor_double`. Same goes for
+# removing public methods ;)
 class Executor
   include Singleton
 
