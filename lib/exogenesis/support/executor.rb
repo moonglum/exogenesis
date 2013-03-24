@@ -1,3 +1,4 @@
+require "fileutils"
 require "singleton"
 require "open3"
 require "exogenesis/support/output"
@@ -47,6 +48,17 @@ class Executor
   def info(description, information)
     @output.left(description)
     @output.info(information)
+  end
+
+  # Create a path starting from the home dir
+  def create_path_in_home(*path)
+    path = File.join(Dir.home, *path)
+    FileUtils.mkpath(path)
+  end
+
+  # Get a path starting from the home dir
+  def get_path_in_home(*path)
+    File.join(Dir.home, *path)
   end
 
   # Execute a shell script. The description will

@@ -3,8 +3,8 @@ require 'exogenesis/support/executor'
 
 # Manages the Vim Package Manager Vundle
 class Vundle < AbstractPackageManager
-  def initialize
-    @executor = Executor.instance
+  def initialize(executor = Executor.instance)
+    @executor = executor
     @vundle_repo = "git://github.com/gmarik/vundle.git"
   end
 
@@ -12,8 +12,7 @@ class Vundle < AbstractPackageManager
   # It creates a `~/.vim` folder and clones Vundle.
   def setup
     @executor.start_section "Vundle"
-    Dir.mkdir(vim_folder) unless File.exists? vim_folder
-
+    @executor.create_path_in_home ".vim", "bundle", "vundle"
     @executor.execute "Cloning Vundle", "git clone #{@vundle_repo} #{vundle_folder}" do |output, error_output|
       raise TaskSkipped.new("Already exists") if error_output.include? "already exists"
     end
@@ -30,7 +29,7 @@ class Vundle < AbstractPackageManager
   def teardown
     @executor.start_section "Vundle"
     @executor.execute "Removing Vim Folder", "rm -r #{vim_folder}" do |output|
-      raise TaskSkipped.new("Folder not found") if output.include "No such file or directory"
+      raise TaskSkipped.new("Folder not found") if output.include? "No such file or directory"
     end
   end
 
@@ -49,10 +48,10 @@ class Vundle < AbstractPackageManager
   private
 
   def vim_folder
-    File.join Dir.home, ".vim"
+    @executor.get_path_in_home ".vim"
   end
 
   def vundle_folder
-    File.join Dir.home, ".vim", "bundle", "vundle"
+    @executor.create_path_in_home ".vim", "bundle", "vundle"
   end
 end
