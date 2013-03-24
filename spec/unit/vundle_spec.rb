@@ -6,14 +6,11 @@ describe Vundle do
 
   subject { Vundle.new(executor) }
 
-  it_should_behave_like "a package manager"
+  it_should_behave_like "a package manager",
+    :with_section_name => :Vundle,
+    :for => [:setup, :install, :teardown, :update, :cleanup]
 
   describe :setup do
-    it "should start the section 'Vundle'" do
-      executor.should_receive(:start_section).with("Vundle")
-      subject.setup
-    end
-
     it "should git clone the vundle repo" do
       executor.stub(:create_path_in_home).with(".vim", "bundle", "vundle").and_return "/Users/muse/.vim/bundle/vundle"
       executor.should_receive(:execute).with("Cloning Vundle",
@@ -28,11 +25,6 @@ describe Vundle do
   end
 
   describe :install do
-    it "should start the section 'Vundle'" do
-      executor.should_receive(:start_section).with("Vundle")
-      subject.install
-    end
-
     it "should interactively execute BundleInstall and BundleClean" do
       executor.should_receive(:execute_interactive).with("Install", "vim +BundleInstall\! +qall")
       executor.should_receive(:execute_interactive).with("Clean", "vim +BundleClean\! +qall")
@@ -41,11 +33,6 @@ describe Vundle do
   end
 
   describe :teardown do
-    it "should start the section 'Vundle'" do
-      executor.should_receive(:start_section).with("Vundle")
-      subject.teardown
-    end
-
     it "should remove the vundle repo" do
       executor.stub(:get_path_in_home).with(".vim").and_return("/Users/muse/.vim")
       executor.should_receive(:execute).with("Removing Vim Folder",
@@ -60,11 +47,6 @@ describe Vundle do
   end
 
   describe :update do
-    it "should start the section 'Vundle'" do
-      executor.should_receive(:start_section).with("Vundle")
-      subject.update
-    end
-
     it "should interactively execute BundleUpdate" do
       executor.should_receive(:execute_interactive).with("Updating Vim Bundles", "vim +BundleUpdate +qall")
       subject.update
@@ -72,11 +54,6 @@ describe Vundle do
   end
 
   describe :cleanup do
-    it "should start the section 'Vundle'" do
-      executor.should_receive(:start_section).with("Vundle")
-      subject.cleanup
-    end
-
     it "should interactively execute BundleClean" do
       executor.should_receive(:execute_interactive).with("Cleaning", "vim +BundleClean\! +qall")
       subject.cleanup
