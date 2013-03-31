@@ -32,8 +32,14 @@ class Homebrew < AbstractPackageManager
   def update
     @executor.start_section "Homebrew"
     @executor.execute "Updating Homebrew", "brew update"
-    @executor.info "Outdated brews", outdated
-    @executor.execute "Upgrading brews", "brew upgrade"
+    outdated_packages = outdated
+    if outdated_packages == 0
+      @executor.info "Brews", "All up to date"
+    else
+      outdated_packages.each do |package|
+        @executor.execute "Upgrade #{package}", "brew upgrade #{package}"
+      end
+    end
   end
 
   def install
@@ -52,7 +58,7 @@ class Homebrew < AbstractPackageManager
   private
 
   def outdated
-    `brew outdated`.split("\n").join(", ")
+    `brew outdated`.split("\n")
   end
 
   def install_package(name, options = [])
