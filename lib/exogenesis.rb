@@ -5,6 +5,7 @@ require "exogenesis/oh-my-zsh"
 require "exogenesis/rvm"
 require "exogenesis/vundle"
 require "exogenesis/fonts"
+require "exogenesis/python"
 require "exogenesis/support/output"
 require "exogenesis/support/executor"
 
