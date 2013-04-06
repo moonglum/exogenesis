@@ -14,9 +14,12 @@ class Fonts < AbstractPackageManager
 
   def install
     @executor.start_section "Installing Fonts"
-    collect_fonts do |file|
-      install_font(file)
-    end
+    install_all_fonts
+  end
+
+  def update
+    @executor.start_section "Updateing Fonts"
+    install_all_fonts
   end
 
   def teardown
@@ -27,6 +30,12 @@ class Fonts < AbstractPackageManager
   end
 
   private
+
+  def install_all_fonts
+    collect_fonts do |file|
+      install_font(file)
+    end
+  end
 
   def collect_fonts
     Dir.glob(File.join(@basepath, "**/*.ttf")).each do |file|
