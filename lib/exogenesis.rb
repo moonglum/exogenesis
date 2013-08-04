@@ -6,6 +6,7 @@ require "exogenesis/rvm"
 require "exogenesis/vundle"
 require "exogenesis/fonts"
 require "exogenesis/python"
+require "exogenesis/git_repo"
 require "exogenesis/support/output"
 require "exogenesis/support/executor"
 
