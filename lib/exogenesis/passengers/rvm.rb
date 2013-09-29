@@ -17,7 +17,7 @@ class Rvm < Passenger
   end
 
   def update
-    executor.execute_interactive "Update", "rvm get head"
+    executor.execute "Update", "rvm get head"
     executor.execute "Reload", "rvm reload"
     current = installed_versions
     rubies.each { |ruby| install_or_update_ruby current, ruby }
