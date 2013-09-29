@@ -5,14 +5,14 @@ class Dotfile < Passenger
   def_delegator :@config, :directory_name
 
   def install
-    @executor.start_section "Installing Dotfiles"
+    executor.start_section "Installing Dotfiles"
     file_names.each { |dotfile| link_file dotfile }
   end
 
   alias_method :update, :install
 
   def teardown
-    @executor.start_section "Tearing town Dotfiles"
+    executor.start_section "Tearing town Dotfiles"
     file_names.each { |dotfile| unlink_file dotfile }
   end
 
@@ -23,9 +23,9 @@ class Dotfile < Passenger
     target = File.join Dir.home, ".#{file_name}"
 
     if File.symlink? target
-      @executor.skip_task "Linking #{file_name}", "Already linked"
+      executor.skip_task "Linking #{file_name}", "Already linked"
     else
-      @executor.execute "Linking #{file_name}", "ln -s #{original} #{target}"
+      executor.execute "Linking #{file_name}", "ln -s #{original} #{target}"
     end
   end
 
@@ -33,9 +33,9 @@ class Dotfile < Passenger
     target = File.join Dir.home, ".#{file_name}"
 
     if File.symlink? target
-      @executor.execute "Unlink #{target}", "rm #{target}"
+      executor.execute "Unlink #{target}", "rm #{target}"
     else
-      @executor.skip_task "Unlink #{target}", "Link not found"
+      executor.skip_task "Unlink #{target}", "Link not found"
     end
   end
 

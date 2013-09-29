@@ -5,17 +5,17 @@ class Fonts < Passenger
   def_delegator :@config, :fonts
 
   def install
-    @executor.start_section "Installing Fonts"
+    executor.start_section "Installing Fonts"
     install_all_fonts
   end
 
   def update
-    @executor.start_section "Updateing Fonts"
+    executor.start_section "Updateing Fonts"
     install_all_fonts
   end
 
   def teardown
-    @executor.start_section "Tearing town Fonts"
+    executor.start_section "Tearing town Fonts"
     collect_fonts do |file|
       uninstall_font(File.basename(file))
     end
@@ -39,10 +39,10 @@ class Fonts < Passenger
   end
 
   def install_font(file)
-    @executor.execute "Copying #{File.basename file}", "cp #{file} #{File.join(ENV['HOME'], "Library/Fonts", File.basename(file))}"
+    executor.execute "Copying #{File.basename file}", "cp #{file} #{File.join(ENV['HOME'], "Library/Fonts", File.basename(file))}"
   end
 
   def uninstall_font(file)
-   @executor.execute "Deleting #{File.basename file}", "rm #{File.join(ENV['HOME'], "Library/Fonts", File.basename(file))}"
+   executor.execute "Deleting #{File.basename file}", "rm #{File.join(ENV['HOME'], "Library/Fonts", File.basename(file))}"
   end
 end
