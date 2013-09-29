@@ -2,15 +2,7 @@ require 'exogenesis/support/passenger'
 
 # Installs and Removes Fonts
 class Fonts < Passenger
-
-  # This copies fonts from the dotfiles repo
-  # to the directory where Mac OS expects the
-  # Font. You can change the directory within
-  # the repo if you want.
-  def initialize(basepath = "fonts")
-    @basepath = basepath
-    @executor = Executor.instance
-  end
+  def_delegator :@config, :fonts
 
   def install
     @executor.start_section "Installing Fonts"

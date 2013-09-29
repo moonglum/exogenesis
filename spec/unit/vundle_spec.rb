@@ -2,9 +2,11 @@ require "spec_helper"
 require "exogenesis/passengers/vundle"
 
 describe Vundle do
+  let(:config) { double }
+
   let(:executor) { executor_double }
 
-  subject { Vundle.new(executor) }
+  subject { Vundle.new(config, executor) }
 
   it_should_behave_like "a package manager",
     :with_section_name => :Vundle,

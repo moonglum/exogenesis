@@ -1,19 +1,15 @@
 require 'exogenesis/support/passenger'
-require 'exogenesis/support/executor'
 
 # Manages the Vim Package Manager Vundle
 class Vundle < Passenger
-  def initialize(executor = Executor.instance)
-    @executor = executor
-    @vundle_repo = "git://github.com/gmarik/vundle.git"
-  end
+  VUNDLE_REPO = "git://github.com/gmarik/vundle.git"
 
   # The dependencies are read from your Vim files
   # It creates a `~/.vim` folder and clones Vundle.
   def setup
     @executor.start_section "Vundle"
     @executor.create_path_in_home ".vim", "bundle", "vundle"
-    @executor.execute "Cloning Vundle", "git clone #{@vundle_repo} #{vundle_folder}" do |output, error_output|
+    @executor.execute "Cloning Vundle", "git clone #{VUNDLE_REPO} #{vundle_folder}" do |output, error_output|
       raise TaskSkipped.new("Already exists") if error_output.include? "already exists"
     end
   end

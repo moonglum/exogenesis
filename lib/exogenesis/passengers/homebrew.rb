@@ -1,22 +1,16 @@
 require 'exogenesis/support/passenger'
-require 'exogenesis/support/executor'
 
 # Manages Homebrew - the premier package manager for Mac OS
 class Homebrew < Passenger
-  # Expects an array of packages to install, a package can either be:
-  # * A String: Then it will just install the package with this name
-  # * An Object with a single key value pair. The key is the name of the package, the value is an array of options passed to it
-  def initialize(brews)
-    @brews = brews
-    @executor = Executor.instance
-    @install_script = "https://raw.github.com/mxcl/homebrew/go"
-    @teardown_script = "https://gist.github.com/mxcl/1173223/raw/a833ba44e7be8428d877e58640720ff43c59dbad/uninstall_homebrew.sh"
-  end
+  INSTALL_SCRIPT = "https://raw.github.com/mxcl/homebrew/go"
+  TEARDOWN_SCRIPT = "https://gist.github.com/mxcl/1173223/raw/a833ba44e7be8428d877e58640720ff43c59dbad/uninstall_homebrew.sh"
+
+  def_delegator :@config, :brews
 
   def setup
     @executor.start_section "Homebrew"
     # Feels wrong to call out to the terminal to start up a new Ruby oO
-    @executor.execute_interactive "Install", "ruby -e \"$(curl -fsSL #{@install_script})\""
+    @executor.execute_interactive "Install", "ruby -e \"$(curl -fsSL #{INSTALL_SCRIPT})\""
   end
 
   def cleanup
@@ -26,7 +20,7 @@ class Homebrew < Passenger
 
   def teardown
     @executor.start_section "Homebrew"
-    @executor.execute "Teardown", "\\curl -L #{@teardown_script} | bash -s"
+    @executor.execute "Teardown", "\\curl -L #{TEARDOWN_SCRIPT} | bash -s"
   end
 
   def update
@@ -44,7 +38,7 @@ class Homebrew < Passenger
 
   def install
     @executor.start_section "Homebrew"
-    @brews.each do |brew|
+    brews.each do |brew|
       if brew.class == String
         install_package brew
       else

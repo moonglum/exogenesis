@@ -2,12 +2,15 @@ require "spec_helper"
 require "exogenesis/passengers/git_repo"
 
 describe GitRepo do
+  let(:config) { double }
+  before { allow(config).to receive(:repos).and_return(repos) }
+
   let(:executor) { executor_double }
   let(:git_repo) { "zsh-users/zsh-syntax-highlighting" }
   let(:target) { "~/.zsh/zsh-syntax-highlighting" }
   let(:repos) { { git_repo => target } }
 
-  subject { GitRepo.new(repos, executor) }
+  subject { GitRepo.new(config, executor) }
 
   it_should_behave_like "a package manager",
     :with_section_name => :GitRepo,

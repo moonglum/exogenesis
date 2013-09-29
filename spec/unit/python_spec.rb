@@ -2,10 +2,13 @@ require "spec_helper"
 require "exogenesis/passengers/python"
 
 describe Python do
-  let(:executor) { executor_double }
-  let(:packages) { ["pygments"] }
+  let(:config) { double}
+  before { allow(config).to receive(:pips).and_return(pips) }
 
-  subject { Python.new(packages, executor) }
+  let(:executor) { executor_double }
+  let(:pips) { ["pygments"] }
+
+  subject { Python.new(config, executor) }
 
   it_should_behave_like "a package manager",
     :with_section_name => :Python,
@@ -25,7 +28,7 @@ describe Python do
   end
 
   describe :install do
-    it "should install the packages provided when initialized" do
+    it "should install the pips provided when initialized" do
       executor.should_receive(:execute).with("Install pygments", "pip install --user pygments")
       subject.install
     end
@@ -37,7 +40,7 @@ describe Python do
   end
 
   describe :update do
-    it "should update the packages provided when initialized" do
+    it "should update the pips provided when initialized" do
       executor.should_receive(:execute).with("Update pygments", "pip install --user --upgrade pygments")
       subject.update
     end

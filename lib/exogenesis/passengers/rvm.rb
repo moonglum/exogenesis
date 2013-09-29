@@ -1,13 +1,8 @@
 require 'exogenesis/support/passenger'
-require 'exogenesis/support/executor'
 
 # Manages the Ruby Version Manager RVM
 class Rvm < Passenger
-  # Expects an array of rubies as Strings you want to install
-  def initialize(rubies)
-    @rubies = rubies
-    @executor = Executor.instance
-  end
+  def_delegator :@config, :rubies
 
   def setup
     @executor.start_section "RVM"
@@ -21,7 +16,7 @@ class Rvm < Passenger
 
   def install
     @executor.start_section "RVM"
-    @rubies.each { |ruby| install_ruby ruby }
+    rubies.each { |ruby| install_ruby ruby }
   end
 
   def update
@@ -29,7 +24,7 @@ class Rvm < Passenger
     @executor.execute_interactive "Update", "rvm get head"
     @executor.execute "Reload", "rvm reload"
     current = installed_versions
-    @rubies.each { |ruby| install_or_update_ruby current, ruby }
+    rubies.each { |ruby| install_or_update_ruby current, ruby }
   end
 
 private

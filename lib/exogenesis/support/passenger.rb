@@ -1,6 +1,12 @@
+require 'forwardable'
+require 'exogenesis/support/executor'
+
 class Passenger
-  # The arguments are arbitrary, please see the individual files for it
-  def initialize
+  extend Forwardable
+
+  def initialize(config, executor = Executor.instance)
+    @config = config
+    @executor = executor
   end
 
   # Installs the package manager itself

@@ -1,15 +1,8 @@
 require 'exogenesis/support/passenger'
-require 'exogenesis/support/executor'
 
 # Links all files in the given directory to your home directory
 class Dotfile < Passenger
-  # Give the directory name relative to the current directory
-  # Defaults to "tilde", because you should call this directory
-  # "tilde". (To be honest, I don't care how you call it.)
-  def initialize(directory_name = "tilde")
-    @directory_name = directory_name
-    @executor = Executor.instance
-  end
+  def_delegator :@config, :directory_name
 
   def install
     @executor.start_section "Installing Dotfiles"
@@ -26,7 +19,7 @@ class Dotfile < Passenger
   private
 
   def link_file(file_name)
-    original = File.join Dir.pwd, @directory_name, file_name.to_s
+    original = File.join Dir.pwd, directory_name, file_name.to_s
     target = File.join Dir.home, ".#{file_name}"
 
     if File.symlink? target
@@ -47,7 +40,7 @@ class Dotfile < Passenger
   end
 
   def file_names
-    file_names = Dir.entries(File.join(Dir.pwd, @directory_name))
+    file_names = Dir.entries(File.join(Dir.pwd, directory_name))
 
     file_names.delete_if do |filename|
       filename.start_with? "."

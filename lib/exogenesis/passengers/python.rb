@@ -1,14 +1,9 @@
 require 'exogenesis/support/passenger'
-require 'exogenesis/support/executor'
 
 # Install Python and pip packages
 # REQUIRES: Homebrew (so put it after your homebrew task)
 class Python < Passenger
-  # Installs and links Python
-  def initialize(packages, executor = Executor.instance)
-    @executor = executor
-    @packages = packages
-  end
+  def_delegator :@config, :pips
 
   def setup
     @executor.start_section "Python"
@@ -20,7 +15,7 @@ class Python < Passenger
 
   def install
     @executor.start_section "Python"
-    @packages.each do |package|
+    pips.each do |package|
       @executor.execute "Install #{package}", "pip install --user #{package}" do |output|
         raise TaskSkipped.new("Already installed") if output.include? "already satisfied"
       end
@@ -29,7 +24,7 @@ class Python < Passenger
 
   def update
     @executor.start_section "Python"
-    @packages.each do |package|
+    pips.each do |package|
       @executor.execute "Update #{package}", "pip install --user --upgrade #{package}" do |output|
         raise TaskSkipped.new("Already up to date") if output.include? "already up-to-date"
       end
