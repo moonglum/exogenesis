@@ -1,5 +1,4 @@
-require 'exogenesis/support/abstract_package_manager'
-require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/passenger'
 require 'exogenesis/support/executor'
 
 # Installs and removes OhMyZSH

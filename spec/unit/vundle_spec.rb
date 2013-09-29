@@ -1,5 +1,5 @@
 require "spec_helper"
-require "exogenesis/vundle"
+require "exogenesis/passengers/vundle"
 
 describe Vundle do
   let(:executor) { executor_double }

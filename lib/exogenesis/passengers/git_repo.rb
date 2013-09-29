@@ -1,9 +1,9 @@
-require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/passenger'
 require 'exogenesis/support/executor'
 
 # Clone, Update and Delete Git Repos
 # REQUIRES: git
-class GitRepo < AbstractPackageManager
+class GitRepo < Passenger
   # Initialize with a hash mapping GitHub Repos to
   # pathes you want to clone to.
   def initialize(repos, executor = Executor.instance)

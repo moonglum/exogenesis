@@ -1,8 +1,8 @@
-require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/passenger'
 require 'exogenesis/support/executor'
 
 # Links all files in the given directory to your home directory
-class Dotfile < AbstractPackageManager
+class Dotfile < Passenger
   # Give the directory name relative to the current directory
   # Defaults to "tilde", because you should call this directory
   # "tilde". (To be honest, I don't care how you call it.)

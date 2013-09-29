@@ -1,8 +1,8 @@
-require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/passenger'
 require 'exogenesis/support/executor'
 
 # Manages the Ruby Version Manager RVM
-class Rvm < AbstractPackageManager
+class Rvm < Passenger
   # Expects an array of rubies as Strings you want to install
   def initialize(rubies)
     @rubies = rubies

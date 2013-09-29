@@ -1,8 +1,8 @@
-require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/passenger'
 require 'exogenesis/support/executor'
 
 # Manages the Vim Package Manager Vundle
-class Vundle < AbstractPackageManager
+class Vundle < Passenger
   def initialize(executor = Executor.instance)
     @executor = executor
     @vundle_repo = "git://github.com/gmarik/vundle.git"

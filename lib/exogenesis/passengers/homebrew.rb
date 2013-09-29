@@ -1,8 +1,8 @@
-require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/passenger'
 require 'exogenesis/support/executor'
 
 # Manages Homebrew - the premier package manager for Mac OS
-class Homebrew < AbstractPackageManager
+class Homebrew < Passenger
   # Expects an array of packages to install, a package can either be:
   # * A String: Then it will just install the package with this name
   # * An Object with a single key value pair. The key is the name of the package, the value is an array of options passed to it

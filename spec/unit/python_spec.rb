@@ -1,5 +1,5 @@
 require "spec_helper"
-require "exogenesis/python"
+require "exogenesis/passengers/python"
 
 describe Python do
   let(:executor) { executor_double }

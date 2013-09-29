@@ -1,7 +1,7 @@
-require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/passenger'
 
 # Installs and Removes Fonts
-class Fonts < AbstractPackageManager
+class Fonts < Passenger
 
   # This copies fonts from the dotfiles repo
   # to the directory where Mac OS expects the

@@ -1,4 +1,4 @@
-class AbstractPackageManager
+class Passenger
   # The arguments are arbitrary, please see the individual files for it
   def initialize
   end

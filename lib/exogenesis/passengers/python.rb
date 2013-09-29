@@ -1,9 +1,9 @@
-require 'exogenesis/support/abstract_package_manager'
+require 'exogenesis/support/passenger'
 require 'exogenesis/support/executor'
 
 # Install Python and pip packages
 # REQUIRES: Homebrew (so put it after your homebrew task)
-class Python < AbstractPackageManager
+class Python < Passenger
   # Installs and links Python
   def initialize(packages, executor = Executor.instance)
     @executor = executor
