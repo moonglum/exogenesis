@@ -9,6 +9,7 @@ require "exogenesis/passengers/python"
 require "exogenesis/passengers/git_repo"
 require "exogenesis/support/output"
 require "exogenesis/support/executor"
+require "exogenesis/support/ship"
 
 module Exogenesis
 end
