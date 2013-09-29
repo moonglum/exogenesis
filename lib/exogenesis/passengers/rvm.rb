@@ -19,17 +19,16 @@ class Rvm < Passenger
   def update
     executor.execute "Update", "rvm get head"
     executor.execute "Reload", "rvm reload"
-    current = installed_versions
-    rubies.each { |ruby| install_or_update_ruby current, ruby }
+    rubies.each { |ruby| install_or_update_ruby ruby }
   end
 
 private
 
-  def install_or_update_ruby(current, ruby)
-    if current[ruby].nil?
+  def install_or_update_ruby(ruby)
+    if installed_versions[ruby].nil?
       install_ruby ruby
     else
-      update_ruby current[ruby], ruby
+      update_ruby installed_versions[ruby], ruby
     end
   end
 
@@ -46,12 +45,14 @@ private
   end
 
   def installed_versions
-    result = {}
+    return @installed_versions if @installed_versions
+
+    @installed_versions = {}
     executor.execute "Getting Installed Versions", "rvm list" do |output|
       output.scan(/((\w+-[\w\.]+)(-(p\d+))?)/).each do |ruby|
-        result[ruby[1]] = ruby[0]
+        @installed_versions[ruby[1]] = ruby[0]
       end
     end
-    result
+    @installed_versions
   end
 end
