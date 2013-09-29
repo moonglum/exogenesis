@@ -8,10 +8,6 @@ describe Vundle do
 
   subject { Vundle.new(config, executor) }
 
-  it_should_behave_like "a package manager",
-    :with_section_name => :Vundle,
-    :for => [:setup, :install, :teardown, :update, :cleanup]
-
   describe :setup do
     it "should git clone the vundle repo" do
       executor.stub(:create_path_in_home).with(".vim", "bundle", "vundle").and_return "/Users/muse/.vim/bundle/vundle"

@@ -6,7 +6,6 @@ class Python < Passenger
   def_delegator :@config, :pips
 
   def setup
-    executor.start_section "Python"
     executor.execute "Install Python", "brew install python" do |output|
       raise TaskSkipped.new("Already installed") if output.include? "already installed"
     end
@@ -14,7 +13,6 @@ class Python < Passenger
   end
 
   def install
-    executor.start_section "Python"
     pips.each do |package|
       executor.execute "Install #{package}", "pip install --user #{package}" do |output|
         raise TaskSkipped.new("Already installed") if output.include? "already satisfied"
@@ -23,7 +21,6 @@ class Python < Passenger
   end
 
   def update
-    executor.start_section "Python"
     pips.each do |package|
       executor.execute "Update #{package}", "pip install --user --upgrade #{package}" do |output|
         raise TaskSkipped.new("Already up to date") if output.include? "already up-to-date"

@@ -5,22 +5,18 @@ class Rvm < Passenger
   def_delegator :@config, :rubies
 
   def setup
-    executor.start_section "RVM"
     executor.execute_interactive "Setup", "\\curl -L https://get.rvm.io | bash -s"
   end
 
   def teardown
-    executor.start_section "RVM"
     executor.execute_interactive "Teardown", "rvm implode"
   end
 
   def install
-    executor.start_section "RVM"
     rubies.each { |ruby| install_ruby ruby }
   end
 
   def update
-    executor.start_section "RVM"
     executor.execute_interactive "Update", "rvm get head"
     executor.execute "Reload", "rvm reload"
     current = installed_versions

@@ -1,4 +1,5 @@
 require "ostruct"
+require 'exogenesis/support/spacesuit'
 
 class Ship
   PASSENGER_TYPES = {
@@ -16,7 +17,8 @@ class Ship
     config = OpenStruct.new(raw_config)
     @package_managers = []
     config.passengers.each do |passenger_name|
-      @package_managers << PASSENGER_TYPES.fetch(passenger_name).new(config)
+      passenger = PASSENGER_TYPES.fetch(passenger_name).new(config)
+      @package_managers << Spacesuit.new(passenger)
     end
   end
 

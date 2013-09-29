@@ -5,17 +5,14 @@ class Fonts < Passenger
   def_delegator :@config, :fonts
 
   def install
-    executor.start_section "Installing Fonts"
     install_all_fonts
   end
 
   def update
-    executor.start_section "Updateing Fonts"
     install_all_fonts
   end
 
   def teardown
-    executor.start_section "Tearing town Fonts"
     collect_fonts do |file|
       uninstall_font(File.basename(file))
     end

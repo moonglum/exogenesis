@@ -12,10 +12,6 @@ describe GitRepo do
 
   subject { GitRepo.new(config, executor) }
 
-  it_should_behave_like "a package manager",
-    :with_section_name => :GitRepo,
-    :for => [:install, :update]
-
   describe :install do
     it "should clone the repos provided when initialized from GitHub" do
       executor.should_receive(:execute).with("Cloning #{git_repo}", "git clone git@github.com:#{git_repo}.git #{target}")
