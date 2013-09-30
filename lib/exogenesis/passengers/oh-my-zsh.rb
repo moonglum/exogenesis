@@ -4,6 +4,8 @@ require 'exogenesis/support/passenger'
 class OhMyZSH < Passenger
   def_delegator :@config, :username
 
+  register_as :oh_my_zsh
+
   def setup
     execute "Cloning", "git clone #{repo} #{target}" do |output, error_output|
       raise TaskSkipped.new("Already exists") if error_output.include? "already exists"

@@ -4,6 +4,8 @@ require 'exogenesis/support/passenger'
 class Dotfile < Passenger
   def_delegator :@config, :directory_name
 
+  register_as :dotfile
+
   def install
     file_names.each { |dotfile| link_file dotfile }
   end

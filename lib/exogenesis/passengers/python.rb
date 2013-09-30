@@ -5,6 +5,8 @@ require 'exogenesis/support/passenger'
 class Python < Passenger
   def_delegator :@config, :pips
 
+  register_as :python
+
   def setup
     execute "Install Python", "brew install python" do |output|
       raise TaskSkipped.new("Already installed") if output.include? "already installed"

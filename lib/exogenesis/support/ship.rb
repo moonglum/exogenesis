@@ -2,22 +2,11 @@ require "ostruct"
 require 'exogenesis/support/spacesuit'
 
 class Ship
-  PASSENGER_TYPES = {
-    "dotfile" => Dotfile,
-    "fonts" => Fonts,
-    "git_repo" => GitRepo,
-    "homebrew" => Homebrew,
-    "oh_my_zsh" => OhMyZSH,
-    "python" => Python,
-    "rvm" => Rvm,
-    "vundle" => Vundle
-  }
-
   def initialize(raw_config)
     config = OpenStruct.new(raw_config)
     @package_managers = []
     config.passengers.each do |passenger_name|
-      passenger = PASSENGER_TYPES.fetch(passenger_name).new(config)
+      passenger = Passenger.by_name(passenger_name).new(config)
       @package_managers << Spacesuit.new(passenger)
     end
   end

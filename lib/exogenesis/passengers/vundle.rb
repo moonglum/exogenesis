@@ -4,6 +4,8 @@ require 'exogenesis/support/passenger'
 class Vundle < Passenger
   VUNDLE_REPO = "git://github.com/gmarik/vundle.git"
 
+  register_as :vundle
+
   # The dependencies are read from your Vim files
   # It creates a `~/.vim` folder and clones Vundle.
   def setup

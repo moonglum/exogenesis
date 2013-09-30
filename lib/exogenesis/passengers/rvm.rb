@@ -4,6 +4,8 @@ require 'exogenesis/support/passenger'
 class Rvm < Passenger
   def_delegator :@config, :rubies
 
+  register_as :rvm
+
   def setup
     execute_interactive "Setup", "\\curl -L https://get.rvm.io | bash -s"
   end

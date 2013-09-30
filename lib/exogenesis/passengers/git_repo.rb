@@ -5,6 +5,8 @@ require 'exogenesis/support/passenger'
 class GitRepo < Passenger
   def_delegator :@config, :repos
 
+  register_as :git_repo
+
   # `git clone` all those repos to the given target
   def install
     repos.each_pair do |git_repo, target|

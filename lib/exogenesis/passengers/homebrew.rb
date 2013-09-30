@@ -7,6 +7,8 @@ class Homebrew < Passenger
 
   def_delegator :@config, :brews
 
+  register_as :homebrew
+
   def setup
     # Feels wrong to call out to the terminal to start up a new Ruby oO
     execute_interactive "Install", "ruby -e \"$(curl -fsSL #{INSTALL_SCRIPT})\""

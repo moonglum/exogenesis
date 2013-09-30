@@ -4,6 +4,8 @@ require 'exogenesis/support/passenger'
 class Fonts < Passenger
   def_delegator :@config, :fonts
 
+  register_as :fonts
+
   def install
     install_all_fonts
   end
