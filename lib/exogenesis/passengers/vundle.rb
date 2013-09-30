@@ -28,7 +28,7 @@ class Vundle < Passenger
 
   # Updates all installed vundles
   def update
-    execute_interactive "Updating Vim Bundles", "vim +BundleUpdate +qall"
+    execute_interactive "Updating Vim Bundles", "vim +BundleInstall\! +qall"
   end
 
   # Runs BundleClean in Vim
