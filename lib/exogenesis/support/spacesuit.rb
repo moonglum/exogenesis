@@ -6,47 +6,35 @@ class Spacesuit
 
   # Installs the package manager itself
   def setup
-    if @passenger.respond_to? :setup
-      start_section
-      @passenger.setup
-    end
+    wrap :setup
   end
 
   # Installs all packages (the list has to be provided in the initialize method)
   def install
-    if @passenger.respond_to? :install
-      start_section
-      @passenger.install
-    end
+    wrap :install
   end
 
   # Updates the package manager itself and all packages
   def update
-    if @passenger.respond_to? :update
-      start_section
-      @passenger.update
-    end
+    wrap :update
   end
 
   # Starts a clean-up process
   def cleanup
-    if @passenger.respond_to? :cleanup
-      start_section
-      @passenger.cleanup
-    end
+    wrap :cleanup
   end
 
   # Uninstalls all packages and the package manager itself
   def teardown
-    if @passenger.respond_to? :teardown
-      start_section
-      @passenger.teardown
-    end
+    wrap :teardown
   end
 
   private
 
-  def start_section
-    @passenger.start_section @passenger.class.to_s
+  def wrap(task_name)
+    if @passenger.respond_to? task_name
+      @passenger.start_section @passenger.class.to_s
+      @passenger.public_send task_name
+    end
   end
 end
