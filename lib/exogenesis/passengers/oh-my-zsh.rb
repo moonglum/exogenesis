@@ -5,13 +5,13 @@ class OhMyZSH < Passenger
   def_delegator :@config, :username
 
   def setup
-    executor.execute "Cloning", "git clone #{repo} #{target}" do |output, error_output|
+    execute "Cloning", "git clone #{repo} #{target}" do |output, error_output|
       raise TaskSkipped.new("Already exists") if error_output.include? "already exists"
     end
   end
 
   def teardown
-    executor.execute "Removing", "rm -r #{target}" do |output, error_output|
+    execute "Removing", "rm -r #{target}" do |output, error_output|
       raise TaskSkipped.new("Folder not found") if error_output.include? "No such file or directory"
     end
   end

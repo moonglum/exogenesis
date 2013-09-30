@@ -9,25 +9,25 @@ class Homebrew < Passenger
 
   def setup
     # Feels wrong to call out to the terminal to start up a new Ruby oO
-    executor.execute_interactive "Install", "ruby -e \"$(curl -fsSL #{INSTALL_SCRIPT})\""
+    execute_interactive "Install", "ruby -e \"$(curl -fsSL #{INSTALL_SCRIPT})\""
   end
 
   def cleanup
-    executor.execute "Clean Up", "brew cleanup"
+    execute "Clean Up", "brew cleanup"
   end
 
   def teardown
-    executor.execute "Teardown", "\\curl -L #{TEARDOWN_SCRIPT} | bash -s"
+    execute "Teardown", "\\curl -L #{TEARDOWN_SCRIPT} | bash -s"
   end
 
   def update
-    executor.execute "Updating Homebrew", "brew update"
+    execute "Updating Homebrew", "brew update"
     outdated_packages = outdated
     if outdated_packages == 0
-      executor.info "Brews", "All up to date"
+      info "Brews", "All up to date"
     else
       outdated_packages.each do |package|
-        executor.execute "Upgrade #{package}", "brew upgrade #{package}"
+        execute "Upgrade #{package}", "brew upgrade #{package}"
       end
     end
   end
@@ -51,7 +51,7 @@ class Homebrew < Passenger
   end
 
   def install_package(name, options = [])
-    executor.execute "Installing #{name}", "brew install #{name} #{options.join}" do |output|
+    execute "Installing #{name}", "brew install #{name} #{options.join}" do |output|
       raise TaskSkipped.new("Already installed") if output.include? "already installed"
     end
   end

@@ -47,6 +47,6 @@ class Spacesuit
   private
 
   def start_section
-    @passenger.executor.start_section @passenger.class.to_s
+    @passenger.start_section @passenger.class.to_s
   end
 end

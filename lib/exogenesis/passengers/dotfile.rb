@@ -21,9 +21,9 @@ class Dotfile < Passenger
     target = File.join Dir.home, ".#{file_name}"
 
     if File.symlink? target
-      executor.skip_task "Linking #{file_name}", "Already linked"
+      skip_task "Linking #{file_name}", "Already linked"
     else
-      executor.execute "Linking #{file_name}", "ln -s #{original} #{target}"
+      execute "Linking #{file_name}", "ln -s #{original} #{target}"
     end
   end
 
@@ -31,9 +31,9 @@ class Dotfile < Passenger
     target = File.join Dir.home, ".#{file_name}"
 
     if File.symlink? target
-      executor.execute "Unlink #{target}", "rm #{target}"
+      execute "Unlink #{target}", "rm #{target}"
     else
-      executor.skip_task "Unlink #{target}", "Link not found"
+      skip_task "Unlink #{target}", "Link not found"
     end
   end
 
