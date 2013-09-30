@@ -2,9 +2,8 @@ require 'exogenesis/support/passenger'
 
 # Installs and removes OhMyZSH
 class OhMyZSH < Passenger
-  def_delegator :@config, :username
-
   register_as :oh_my_zsh
+  needs :username
 
   def setup
     execute "Cloning", "git clone #{repo} #{target}" do |output, error_output|

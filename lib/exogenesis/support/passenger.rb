@@ -15,6 +15,10 @@ class Passenger
       Passenger.passengers = {} if Passenger.passengers.nil?
       Passenger.passengers[name.to_s] = self
     end
+
+    def needs(config_name)
+      def_delegator :@config, config_name
+    end
   end
 
   def_delegators :@executor,

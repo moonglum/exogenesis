@@ -3,9 +3,8 @@ require 'exogenesis/support/passenger'
 # Install Python and pip packages
 # REQUIRES: Homebrew (so put it after your homebrew task)
 class Python < Passenger
-  def_delegator :@config, :pips
-
   register_as :python
+  needs :pips
 
   def setup
     execute "Install Python", "brew install python" do |output|

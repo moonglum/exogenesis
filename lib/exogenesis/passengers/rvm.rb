@@ -2,9 +2,8 @@ require 'exogenesis/support/passenger'
 
 # Manages the Ruby Version Manager RVM
 class Rvm < Passenger
-  def_delegator :@config, :rubies
-
   register_as :rvm
+  needs :rubies
 
   def setup
     execute_interactive "Setup", "\\curl -L https://get.rvm.io | bash -s"

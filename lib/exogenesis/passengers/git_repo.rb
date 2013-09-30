@@ -3,9 +3,8 @@ require 'exogenesis/support/passenger'
 # Clone, Update and Delete Git Repos
 # REQUIRES: git
 class GitRepo < Passenger
-  def_delegator :@config, :repos
-
   register_as :git_repo
+  needs :repos
 
   # `git clone` all those repos to the given target
   def install

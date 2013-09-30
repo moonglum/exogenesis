@@ -2,9 +2,8 @@ require 'exogenesis/support/passenger'
 
 # Links all files in the given directory to your home directory
 class Dotfile < Passenger
-  def_delegator :@config, :directory_name
-
   register_as :dotfile
+  needs :directory_name
 
   def install
     file_names.each { |dotfile| link_file dotfile }
