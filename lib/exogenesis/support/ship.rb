@@ -1,7 +1,10 @@
-require "ostruct"
+require 'ostruct'
+require 'forwardable'
 require 'exogenesis/support/spacesuit'
 
 class Ship
+  extend Forwardable
+
   def initialize(raw_config)
     config = OpenStruct.new(raw_config)
     @package_managers = []
@@ -11,23 +14,25 @@ class Ship
     end
   end
 
+  def_delegator :@package_managers, :each
+
   def setup
-    @package_managers.each(&:setup)
+    each(&:setup)
   end
 
   def install
-    @package_managers.each(&:install)
+    each(&:install)
   end
 
   def cleanup
-    @package_managers.each(&:cleanup)
+    each(&:cleanup)
   end
 
   def update
-    @package_managers.each(&:update)
+    each(&:update)
   end
 
   def teardown
-    @package_managers.each(&:teardown)
+    each(&:teardown)
   end
 end
