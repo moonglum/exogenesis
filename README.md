@@ -13,30 +13,18 @@ The current best practice is to create a Rakefile in your dotfile repo that look
 ```ruby
 #!/usr/bin/env rake
 require "yaml"
-require "rubygems"
 require "exogenesis"
 
-# Configure your output here (see Configuration)
 Output.fancy
+packages_file = YAML.load_file("packages.yml")
+ship = Ship.new(packages_file)
 
-# Load the lists of brews you want to install for example
-packages = YAML.load_file "packages.yml"
-
-# Create an array of all the initialized package managers
-package_managers = [
-  Dotfile.new,
-  OhMyZSH.new("moonglum"),
-  Homebrew.new(packages["brews"]),
-  Vundle.new,
-  Rvm.new(packages["rubies"])
-]
-
-desc "Setup the dotfiles"
-task :setup do
-  package_managers.each(&:setup)
+[:setup, :install, :cleanup, :update, :uninstall].each do |task_name|
+  desc "#{task_name.capitalize} the Dotfiles"
+  task task_name do
+    ship.public_send task_name
+  end
 end
-
-# ...and corresponding Rake tasks for the other methods
 ```
 
 You can find a list of real-world usage of this gem [here](https://github.com/moonglum/exogenesis/wiki/List-of-Users). There are links to the actual install files there, so you can see how they did it.
