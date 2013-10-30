@@ -29,6 +29,16 @@ end
 
 You can find a list of real-world usage of this gem [here](https://github.com/moonglum/exogenesis/wiki/List-of-Users). There are links to the actual install files there, so you can see how they did it.
 
+## If you use it...
+
+...and you really like it, you can add the exogenesis badge to the title of your dotfile's README and link to this project:
+
+![badge](badge.png)
+
+```markdown
+[![badge](https://github.com/moonglum/exogenesis/raw/badge/badge.png)](https://github.com/moonglum/exogenesis)
+```
+
 ## Configuration
 
 You can configure the output of Exogenesis via the `Output` class:
