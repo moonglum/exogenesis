@@ -46,7 +46,7 @@ describe Vundle do
 
   describe :update do
     it "should interactively execute BundleUpdate" do
-      executor.should_receive(:execute_interactive).with("Updating Vim Bundles", "vim +BundleUpdate +qall")
+      executor.should_receive(:execute_interactive).with("Updating Vim Bundles", "vim +BundleInstall! +qall")
       subject.update
     end
   end
