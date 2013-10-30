@@ -36,7 +36,7 @@ You can find a list of real-world usage of this gem [here](https://github.com/mo
 ![badge](badge.png)
 
 ```markdown
-[![badge](https://github.com/moonglum/exogenesis/raw/badge/badge.png)](https://github.com/moonglum/exogenesis)
+[![badge](https://raw.github.com/moonglum/exogenesis/master/badge.png)](https://github.com/moonglum/exogenesis)
 ```
 
 ## Configuration
