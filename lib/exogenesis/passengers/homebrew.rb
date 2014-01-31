@@ -27,9 +27,7 @@ class Homebrew < Passenger
     if outdated_packages == 0
       info "Brews", "All up to date"
     else
-      outdated_packages.each do |package|
-        execute "Upgrade #{package}", "brew upgrade #{package}"
-      end
+      execute "Upgrade #{outdated_packages.join(", ")}", "brew upgrade #{outdated_packages.join(" ")}"
     end
   end
 
