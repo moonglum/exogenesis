@@ -15,18 +15,18 @@ class Spacesuit
   end
 
   # Updates the package manager itself and all packages
-  def update
-    wrap :update
+  def up
+    wrap :up
   end
 
   # Starts a clean-up process
-  def cleanup
-    wrap :cleanup
+  def clean
+    wrap :clean
   end
 
   # Uninstalls all packages and the package manager itself
-  def teardown
-    wrap :teardown
+  def down
+    wrap :down
   end
 
   private

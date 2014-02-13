@@ -21,7 +21,7 @@ class Python < Passenger
     end
   end
 
-  def update
+  def up
     pips.each do |package|
       execute "Update #{package}", "pip install --user --upgrade #{package}" do |output|
         raise TaskSkipped.new("Already up to date") if output.include? "already up-to-date"

@@ -1,6 +1,6 @@
 # Exogenesis
 
-A collection of classes that help you install, update and teardown package managers and other things useful for your dotfiles. It's something like a meta package manager (package manager is the wrong word... still searching for a better one). You can use it to install/update/teardown your dotfiles or to create a single `update` command to update everything on your computer.
+A collection of classes that help you install, update and teardown package managers and other things useful for your dotfiles. It's something like a meta package manager (package manager is the wrong word... still searching for a better one). You can use it to install/update/teardown your dotfiles or to create a single `up` command to update everything on your computer.
 
 It creates a beautiful output if you want it to (see Configuration). For a little [demonstration](http://ascii.io/a/2491) see this asciicast of my `rake install` running on my (already installed :wink:) system.
 
@@ -19,7 +19,7 @@ Output.fancy
 packages_file = YAML.load_file("packages.yml")
 ship = Ship.new(packages_file)
 
-[:setup, :install, :cleanup, :update, :uninstall].each do |task_name|
+[:setup, :install, :clean, :up, :down].each do |task_name|
   desc "#{task_name.capitalize} the Dotfiles"
   task task_name do
     ship.public_send task_name
@@ -55,9 +55,9 @@ Every class has the following methods (with the exception of `initialize` they a
 * `initialize`: The arguments are arbitrary, please see the individual files for it
 * `setup`: Installs the package manager itself
 * `install`: Installs all packages (the list has to be provided in the initialize method)
-* `update`: Updates the package manager itself and all packages
-* `cleanup`: Starts a clean-up process
-* `teardown`: Uninstalls all packages and the package manager itself
+* `up`: Updates the package manager itself and all packages
+* `clean`: Starts a clean-up process
+* `down`: Uninstalls all packages and the package manager itself
 
 Not all package managers will need all of the methods. Just do not implement them.
 

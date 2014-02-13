@@ -24,15 +24,15 @@ class Ship
     each(&:install)
   end
 
-  def cleanup
-    each(&:cleanup)
+  def clean
+    each(&:clean)
   end
 
-  def update
-    each(&:update)
+  def up
+    each(&:up)
   end
 
-  def teardown
-    each(&:teardown)
+  def down
+    each(&:down)
   end
 end

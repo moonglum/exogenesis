@@ -11,7 +11,7 @@ class OhMyZSH < Passenger
     end
   end
 
-  def teardown
+  def down
     execute "Removing", "rm -r #{target}" do |output, error_output|
       raise TaskSkipped.new("Folder not found") if error_output.include? "No such file or directory"
     end

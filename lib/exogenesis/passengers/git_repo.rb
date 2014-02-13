@@ -16,7 +16,7 @@ class GitRepo < Passenger
   end
 
   # `git pull` all those repos
-  def update
+  def up
     repos.each_pair do |git_repo, target|
       execute "Pulling #{git_repo}", "cd #{target} && git pull"
     end

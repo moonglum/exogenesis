@@ -22,19 +22,19 @@ class Vundle < Passenger
   end
 
   # Removes the ~/.vim folder
-  def teardown
+  def down
     execute "Removing Vim Folder", "rm -r #{vim_folder}" do |output|
       raise TaskSkipped.new("Folder not found") if output.include? "No such file or directory"
     end
   end
 
   # Updates all installed vundles
-  def update
+  def up
     execute_interactive "Updating Vim Bundles", "vim +BundleInstall\! +qall"
   end
 
   # Runs BundleClean in Vim
-  def cleanup
+  def clean
     execute_interactive "Cleaning", "vim +BundleClean\! +qall"
   end
 

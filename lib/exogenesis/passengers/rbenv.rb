@@ -10,7 +10,7 @@ class Rbenv < Passenger
     execute "Setup ruby-build plugin", "git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build"
   end
 
-  def teardown
+  def down
     execute_interactive "Teardown", "rm -r ~/.rbenv"
   end
 
@@ -19,7 +19,7 @@ class Rbenv < Passenger
     execute "Rehash", "rbenv rehash"
   end
 
-  def update
+  def up
     execute "Update rbenv", "cd ~/.rbenv && git pull"
     execute "Update ruby-build", "cd ~/.rbenv/plugins/ruby-build && git pull"
     rubies.each { |ruby| install_ruby ruby }

@@ -13,15 +13,15 @@ class Homebrew < Passenger
     execute_interactive "Install", "ruby -e \"$(curl -fsSL #{INSTALL_SCRIPT})\""
   end
 
-  def cleanup
+  def clean
     execute "Clean Up", "brew cleanup"
   end
 
-  def teardown
+  def down
     execute "Teardown", "\\curl -L #{TEARDOWN_SCRIPT} | bash -s"
   end
 
-  def update
+  def up
     execute "Updating Homebrew", "brew update"
     outdated_packages = outdated
     if outdated_packages.length == 0

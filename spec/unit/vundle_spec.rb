@@ -30,31 +30,31 @@ describe Vundle do
     end
   end
 
-  describe :teardown do
+  describe :down do
     it "should remove the vundle repo" do
       executor.stub(:get_path_in_home).with(".vim").and_return("/Users/muse/.vim")
       executor.should_receive(:execute).with("Removing Vim Folder",
         "rm -r /Users/muse/.vim")
-      subject.teardown
+      subject.down
     end
 
     it "should skip the task if the output contains 'No such file or directory'" do
       executor.stub(:execute).and_yield("No such file or directory")
-      expect { subject.teardown }.to raise_exception(TaskSkipped, "Folder not found")
+      expect { subject.down }.to raise_exception(TaskSkipped, "Folder not found")
     end
   end
 
-  describe :update do
+  describe :up do
     it "should interactively execute BundleUpdate" do
       executor.should_receive(:execute_interactive).with("Updating Vim Bundles", "vim +BundleInstall! +qall")
-      subject.update
+      subject.up
     end
   end
 
-  describe :cleanup do
+  describe :clean do
     it "should interactively execute BundleClean" do
       executor.should_receive(:execute_interactive).with("Cleaning", "vim +BundleClean\! +qall")
-      subject.cleanup
+      subject.clean
     end
   end
 end

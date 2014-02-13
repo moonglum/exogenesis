@@ -35,15 +35,15 @@ describe Python do
     end
   end
 
-  describe :update do
+  describe :up do
     it "should update the pips provided when initialized" do
       executor.should_receive(:execute).with("Update pygments", "pip install --user --upgrade pygments")
-      subject.update
+      subject.up
     end
 
     it "should skip the package if it is already up to date" do
       executor.stub(:execute).with("Update pygments", "pip install --user --upgrade pygments").and_yield "already up-to-date"
-      expect { subject.update }.to raise_exception(TaskSkipped, "Already up to date")
+      expect { subject.up }.to raise_exception(TaskSkipped, "Already up to date")
     end
   end
 end

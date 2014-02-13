@@ -9,11 +9,11 @@ class Fonts < Passenger
     install_all_fonts
   end
 
-  def update
+  def up
     install_all_fonts
   end
 
-  def teardown
+  def down
     collect_fonts do |file|
       uninstall_font(File.basename(file))
     end
