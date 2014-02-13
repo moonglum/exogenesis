@@ -1,6 +1,6 @@
 require 'exogenesis/support/passenger'
 
-# Manages the Ruby Version Manager Rbenv
+# Manages the Ruby Version Manager Rbenv and the ruby installer ruby-build
 class Rbenv < Passenger
   register_as :rbenv
   needs :rubies
@@ -20,7 +20,8 @@ class Rbenv < Passenger
   end
 
   def update
-    execute "Update rbenv + ruby-build", "cd ~/.rbenv; git pull;cd ~/.rbenv/plugins/ruby-build; git pull"
+    execute "Update rbenv", "cd ~/.rbenv; git pull"
+    execute "Update ruby-build", "cd ~/.rbenv/plugins/ruby-build; git pull"
     rubies.each { |ruby| install_ruby ruby }
     execute "Rehash", "rbenv rehash"
   end
@@ -28,7 +29,7 @@ class Rbenv < Passenger
 private
 
   def install_ruby(ruby)
-    if !installed_versions.include? ruby
+    unless installed_versions.include? ruby
       execute "Installing #{ruby}", "rbenv install #{ruby}"
     end
   end
