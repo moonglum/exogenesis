@@ -20,8 +20,8 @@ class Rbenv < Passenger
   end
 
   def update
-    execute "Update rbenv", "cd ~/.rbenv; git pull"
-    execute "Update ruby-build", "cd ~/.rbenv/plugins/ruby-build; git pull"
+    execute "Update rbenv", "cd ~/.rbenv && git pull"
+    execute "Update ruby-build", "cd ~/.rbenv/plugins/ruby-build && git pull"
     rubies.each { |ruby| install_ruby ruby }
     execute "Rehash", "rbenv rehash"
   end
