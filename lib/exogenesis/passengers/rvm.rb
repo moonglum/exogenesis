@@ -17,7 +17,7 @@ class Rvm < Passenger
     rubies.each { |ruby| install_ruby ruby }
   end
 
-  def update
+  def up
     execute "Update", "rvm get head"
     execute "Reload", "rvm reload"
     rubies.each { |ruby| install_or_update_ruby ruby }

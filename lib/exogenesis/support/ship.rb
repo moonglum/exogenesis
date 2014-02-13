@@ -28,8 +28,8 @@ class Ship
     each(&:clean)
   end
 
-  def update
-    each(&:update)
+  def up
+    each(&:up)
   end
 
   def down

@@ -24,10 +24,10 @@ describe GitRepo do
     end
   end
 
-  describe :update do
+  describe :up do
     it "should pull the repos provided when initialized" do
       executor.should_receive(:execute).with("Pulling #{git_repo}", "cd #{target} && git pull")
-      subject.update
+      subject.up
     end
   end
 end

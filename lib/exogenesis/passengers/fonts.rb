@@ -9,7 +9,7 @@ class Fonts < Passenger
     install_all_fonts
   end
 
-  def update
+  def up
     install_all_fonts
   end
 

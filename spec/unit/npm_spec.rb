@@ -29,10 +29,10 @@ describe Npm do
     end
   end
 
-  describe :update do
+  describe :up do
     it "should update the npms provided when initialized" do
       executor.should_receive(:execute).with("Update buster", "npm update -g buster")
-      subject.update
+      subject.up
     end
   end
 end

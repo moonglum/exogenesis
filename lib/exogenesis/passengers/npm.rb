@@ -18,7 +18,7 @@ class Npm < Passenger
     end
   end
 
-  def update
+  def up
     npms.each do |package|
       execute "Update #{package}", "npm update -g #{package}" 
     end

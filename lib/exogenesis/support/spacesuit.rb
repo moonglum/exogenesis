@@ -15,8 +15,8 @@ class Spacesuit
   end
 
   # Updates the package manager itself and all packages
-  def update
-    wrap :update
+  def up
+    wrap :up
   end
 
   # Starts a clean-up process

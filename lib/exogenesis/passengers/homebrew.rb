@@ -21,7 +21,7 @@ class Homebrew < Passenger
     execute "Teardown", "\\curl -L #{TEARDOWN_SCRIPT} | bash -s"
   end
 
-  def update
+  def up
     execute "Updating Homebrew", "brew update"
     outdated_packages = outdated
     if outdated_packages.length == 0

@@ -33,14 +33,14 @@ describe Rbenv do
     end
   end
 
-  describe :update do
+  describe :up do
     it "should update the rubies provided when initialized" do
       allow(executor).to receive(:execute).with("Getting Installed Verisons", "rbenv versions").and_yield "  1.9.3-p448\n    2.0.0-p247"
       executor.should_receive(:execute).with("Update rbenv", "cd ~/.rbenv && git pull")
       executor.should_receive(:execute).with("Update ruby-build", "cd ~/.rbenv/plugins/ruby-build && git pull")
       executor.should_receive(:execute).with("Installing 2.0.0-p353", "rbenv install 2.0.0-p353")
       executor.should_receive(:execute).with("Rehash", "rbenv rehash")
-      subject.update
+      subject.up
     end
   end
 end
