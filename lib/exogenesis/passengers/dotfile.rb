@@ -11,7 +11,7 @@ class Dotfile < Passenger
 
   alias_method :update, :install
 
-  def teardown
+  def down
     file_names.each { |dotfile| unlink_file dotfile }
   end
 

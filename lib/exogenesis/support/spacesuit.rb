@@ -25,8 +25,8 @@ class Spacesuit
   end
 
   # Uninstalls all packages and the package manager itself
-  def teardown
-    wrap :teardown
+  def down
+    wrap :down
   end
 
   private

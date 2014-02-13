@@ -22,7 +22,7 @@ class Vundle < Passenger
   end
 
   # Removes the ~/.vim folder
-  def teardown
+  def down
     execute "Removing Vim Folder", "rm -r #{vim_folder}" do |output|
       raise TaskSkipped.new("Folder not found") if output.include? "No such file or directory"
     end

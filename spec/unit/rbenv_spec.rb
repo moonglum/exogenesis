@@ -19,9 +19,9 @@ describe Rbenv do
   end
 
   describe :teardonw do
-    it "should ask to remove the rbenv directory on teardown" do
+    it "should ask to remove the rbenv directory on down" do
       executor.should_receive(:execute_interactive).with("Teardown", "rm -r ~/.rbenv")
-      subject.teardown
+      subject.down
     end
   end
 

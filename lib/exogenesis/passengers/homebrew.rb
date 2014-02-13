@@ -17,7 +17,7 @@ class Homebrew < Passenger
     execute "Clean Up", "brew cleanup"
   end
 
-  def teardown
+  def down
     execute "Teardown", "\\curl -L #{TEARDOWN_SCRIPT} | bash -s"
   end
 

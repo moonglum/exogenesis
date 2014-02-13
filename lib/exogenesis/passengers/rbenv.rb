@@ -10,7 +10,7 @@ class Rbenv < Passenger
     execute "Setup ruby-build plugin", "git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build"
   end
 
-  def teardown
+  def down
     execute_interactive "Teardown", "rm -r ~/.rbenv"
   end
 

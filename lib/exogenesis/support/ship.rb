@@ -32,7 +32,7 @@ class Ship
     each(&:update)
   end
 
-  def teardown
-    each(&:teardown)
+  def down
+    each(&:down)
   end
 end

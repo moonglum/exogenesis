@@ -9,7 +9,7 @@ class Rvm < Passenger
     execute_interactive "Setup", "\\curl -L https://get.rvm.io | bash -s"
   end
 
-  def teardown
+  def down
     execute_interactive "Teardown", "rvm implode"
   end
 
