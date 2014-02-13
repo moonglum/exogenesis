@@ -77,10 +77,12 @@ class Executor
     start_task description
 
     output, error_output, exit_status = nil
-    Open3.popen3(script) do |stdin, stdout, stderr, process|
-      output = stdout.read
-      error_output = stderr.read
-      exit_status = process.value.exitstatus
+    Bundler.with_clean_env do
+      Open3.popen3(script) do |stdin, stdout, stderr, process|
+        output = stdout.read
+        error_output = stderr.read
+        exit_status = process.value.exitstatus
+      end
     end
 
     yield(output, error_output) if block_given?
