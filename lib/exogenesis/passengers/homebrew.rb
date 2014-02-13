@@ -24,7 +24,7 @@ class Homebrew < Passenger
   def update
     execute "Updating Homebrew", "brew update"
     outdated_packages = outdated
-    if outdated_packages == 0
+    if outdated_packages.length == 0
       info "Brews", "All up to date"
     else
       execute "Upgrade #{outdated_packages.join(", ")}", "brew upgrade #{outdated_packages.join(" ")}"
