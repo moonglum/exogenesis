@@ -34,7 +34,7 @@ class Vundle < Passenger
   end
 
   # Runs BundleClean in Vim
-  def cleanup
+  def clean
     execute_interactive "Cleaning", "vim +BundleClean\! +qall"
   end
 

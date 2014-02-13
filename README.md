@@ -19,7 +19,7 @@ Output.fancy
 packages_file = YAML.load_file("packages.yml")
 ship = Ship.new(packages_file)
 
-[:setup, :install, :cleanup, :update, :uninstall].each do |task_name|
+[:setup, :install, :clean, :update, :uninstall].each do |task_name|
   desc "#{task_name.capitalize} the Dotfiles"
   task task_name do
     ship.public_send task_name
@@ -56,7 +56,7 @@ Every class has the following methods (with the exception of `initialize` they a
 * `setup`: Installs the package manager itself
 * `install`: Installs all packages (the list has to be provided in the initialize method)
 * `update`: Updates the package manager itself and all packages
-* `cleanup`: Starts a clean-up process
+* `clean`: Starts a clean-up process
 * `teardown`: Uninstalls all packages and the package manager itself
 
 Not all package managers will need all of the methods. Just do not implement them.

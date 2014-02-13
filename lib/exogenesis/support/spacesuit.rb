@@ -20,8 +20,8 @@ class Spacesuit
   end
 
   # Starts a clean-up process
-  def cleanup
-    wrap :cleanup
+  def clean
+    wrap :clean
   end
 
   # Uninstalls all packages and the package manager itself

@@ -24,8 +24,8 @@ class Ship
     each(&:install)
   end
 
-  def cleanup
-    each(&:cleanup)
+  def clean
+    each(&:clean)
   end
 
   def update

@@ -13,7 +13,7 @@ class Homebrew < Passenger
     execute_interactive "Install", "ruby -e \"$(curl -fsSL #{INSTALL_SCRIPT})\""
   end
 
-  def cleanup
+  def clean
     execute "Clean Up", "brew cleanup"
   end
 

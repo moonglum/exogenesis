@@ -51,10 +51,10 @@ describe Vundle do
     end
   end
 
-  describe :cleanup do
+  describe :clean do
     it "should interactively execute BundleClean" do
       executor.should_receive(:execute_interactive).with("Cleaning", "vim +BundleClean\! +qall")
-      subject.cleanup
+      subject.clean
     end
   end
 end
