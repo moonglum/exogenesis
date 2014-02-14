@@ -5,10 +5,6 @@ class Fonts < Passenger
   register_as :fonts
   needs :fonts
 
-  def install
-    install_all_fonts
-  end
-
   def up
     install_all_fonts
   end
