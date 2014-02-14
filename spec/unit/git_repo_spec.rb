@@ -2,32 +2,43 @@ require "spec_helper"
 require "exogenesis/passengers/git_repo"
 
 describe GitRepo do
+  let(:git_repo) { double('GitRepository') }
+  let(:target) { double('Target') }
+  let(:target_path) { double('TargetPath') }
+  let(:repos) { { git_repo => target } }
+
   let(:config) { double }
   before { allow(config).to receive(:repos).and_return(repos) }
 
   let(:executor) { executor_double }
-  let(:git_repo) { "zsh-users/zsh-syntax-highlighting" }
-  let(:target) { "~/.zsh/zsh-syntax-highlighting" }
-  let(:repos) { { git_repo => target } }
+  before { allow(executor).to receive(:get_path_for).with(target).and_return(target_path) }
 
   subject { GitRepo.new(config, executor) }
 
-  describe :install do
-    it "should clone the repos provided when initialized from GitHub" do
-      executor.should_receive(:execute).with("Cloning #{git_repo}", "git clone git@github.com:#{git_repo}.git #{target}")
-      subject.install
+  describe :up do
+    context 'path exists' do
+      before { allow(target_path).to receive(:exist?).and_return true }
+
+      it 'should pull the repo' do
+        expect(executor).to receive(:pull_repo).with(git_repo, target_path)
+        subject.up
+      end
     end
 
-    it "should skip if the repo was already cloned" do
-      executor.stub(:execute).and_yield "", "already exists and is not an empty directory"
-      expect { subject.install }.to raise_exception(TaskSkipped, "Already cloned")
+    context 'path does not exist' do
+      before { allow(target_path).to receive(:exist?).and_return false }
+
+      it 'should clone the repo' do
+        expect(executor).to receive(:clone_repo).with(git_repo, target_path)
+        subject.up
+      end
     end
   end
 
-  describe :up do
-    it "should pull the repos provided when initialized" do
-      executor.should_receive(:execute).with("Pulling #{git_repo}", "cd #{target} && git pull")
-      subject.up
+  describe :down do
+    it 'should `rm_rf` the repo' do
+      expect(executor).to receive(:rm_rf).with(target_path)
+      subject.down
     end
   end
 end

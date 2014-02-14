@@ -6,19 +6,23 @@ class GitRepo < Passenger
   register_as :git_repo
   needs :repos
 
-  # `git clone` all those repos to the given target
-  def install
-    repos.each_pair do |git_repo, target|
-      execute "Cloning #{git_repo}", "git clone git@github.com:#{git_repo}.git #{target}" do |_, output|
-        raise TaskSkipped.new("Already cloned") if output.include? "already exists"
+  # Clone the Repo if it doesn't exist
+  # Pull the Repo if it does
+  def up
+    repos.each_pair do |git_repo, raw_target|
+      target = get_path_for(raw_target)
+      if target.exist?
+        pull_repo(git_repo, target)
+      else
+        clone_repo(git_repo, target)
       end
     end
   end
 
-  # `git pull` all those repos
-  def up
-    repos.each_pair do |git_repo, target|
-      execute "Pulling #{git_repo}", "cd #{target} && git pull"
+  # Delete the Repos
+  def down
+    repos.each_pair do |_, target|
+      rm_rf(get_path_for(target))
     end
   end
 end
