@@ -5,11 +5,9 @@ class Dotfile < Passenger
   register_as :dotfile
   needs :directory_name
 
-  def install
+  def up
     file_names.each { |dotfile| link_file dotfile }
   end
-
-  alias_method :up, :install
 
   def down
     file_names.each { |dotfile| unlink_file dotfile }
