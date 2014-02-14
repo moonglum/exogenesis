@@ -5,7 +5,7 @@ class OhMyZSH < Passenger
   register_as :oh_my_zsh
   needs :username
 
-  def setup
+  def up
     execute "Cloning", "git clone #{repo} #{target}" do |output, error_output|
       raise TaskSkipped.new("Already exists") if error_output.include? "already exists"
     end
