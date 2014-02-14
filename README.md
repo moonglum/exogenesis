@@ -66,7 +66,6 @@ Not all package managers will need all of the methods. Just do not implement the
 * **Dotfile:** Link/Unlink your dotfiles
 * **Fonts:** Manage your fonts
 * **Homebrew:** Install/Uninstall/Update Homebrew and its packages
-* **OhMyZSH:** Install/Uninstall OhMyZSH
 * **RVM:** Install/Uninstall/Update RVM and Rubies
 * **Rbenv:** Install/Uninstall/Update Rbenv+Ruby-Build and Rubies
 * **Vundle:** Install/Uninstall/Update Vundle and its packages
