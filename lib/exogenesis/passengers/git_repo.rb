@@ -9,8 +9,7 @@ class GitRepo < Passenger
   # Clone the Repo if it doesn't exist
   # Pull the Repo if it does
   def up
-    repos.each_pair do |git_repo, raw_target|
-      target = get_path_for(raw_target)
+    each_repo_and_target do |git_repo, target|
       if target.exist?
         pull_repo(git_repo, target)
       else
@@ -21,8 +20,16 @@ class GitRepo < Passenger
 
   # Delete the Repos
   def down
-    repos.each_pair do |_, target|
-      rm_rf(get_path_for(target))
+    each_repo_and_target do |_, target|
+      rm_rf(target)
+    end
+  end
+
+  private
+
+  def each_repo_and_target
+    repos.each_pair do |git_repo, raw_target|
+      yield git_repo, get_path_for(raw_target)
     end
   end
 end
