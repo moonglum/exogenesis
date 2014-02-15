@@ -105,4 +105,58 @@ class Executor
     system script
     @output.end_border
   end
+
+  # Wrapper around FileUtils' `rm_rf`
+  # First check if the path exists, info if it doesn't exist
+  # If it exists, ask if the user really wants to delete it
+  # path: Needs to be a PathName
+  def rm_rf(path)
+    if path.exist?
+      if ask?("Do you really want to `rm -rf #{path}?`")
+        FileUtils.rm_rf(path)
+      end
+    else
+      info("Delete `#{path}`", "Already deleted")
+    end
+  end
+
+  # Ask the user a yes/no question
+  def ask?(question)
+    start_task("#{question} (y for yes, everything else aborts)")
+    STDIN.gets == "y\n"
+  end
+
+  # Clone a git repository
+  # TODO: Currently only supports Github Repos, but should work in hub-style in the future
+  # git_repo: A Github repo name
+  # target: A path object where you want to clone to
+  def clone_repo(git_repo, target)
+    execute "Cloning #{git_repo}", "git clone git@github.com:#{git_repo}.git #{target}"
+  end
+
+  # Pull a git repository
+  # git_repo: Is just used for the description
+  # git_repo: A Github repo name (only used for task description)
+  # target: A path object where you want to pull
+  def pull_repo(git_repo, target)
+    check_if_git_repo! target
+    execute "Pulling #{git_repo}", "cd #{target} && git pull"
+  end
+
+  # Get an expanded PathName for a String
+  def get_path_for(path_as_string)
+    Pathname.new(File.expand_path(path_as_string))
+  end
+
+  private
+
+  # Path: A pathname object where you want to pull
+  def check_if_git_repo!(path)
+    start_task "Checking #{path.basename}"
+    if path.children.one? { |child| child.basename.to_s == ".git" }
+      task_succeeded
+    else
+      task_failed "Not a git repository"
+    end
+  end
 end

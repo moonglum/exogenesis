@@ -31,7 +31,12 @@ class Passenger
     :create_path_in_home,
     :get_path_in_home,
     :execute,
-    :execute_interactive
+    :execute_interactive,
+    :rm_rf,
+    :ask?,
+    :clone_repo,
+    :pull_repo,
+    :get_path_for
 
   def initialize(config, executor = Executor.instance)
     @config = config
