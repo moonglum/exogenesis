@@ -36,7 +36,8 @@ class Passenger
     :ask?,
     :clone_repo,
     :pull_repo,
-    :get_path_for
+    :get_path_for,
+    :command_exists?
 
   def initialize(config, executor = Executor.instance)
     @config = config

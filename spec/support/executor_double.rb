@@ -20,6 +20,7 @@ module ExecutorDouble
     executor.stub(:clone_repo)
     executor.stub(:pull_repo)
     executor.stub(:get_path_for)
+    executor.stub(:command_exists?)
     executor
   end
 end
