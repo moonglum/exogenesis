@@ -15,6 +15,7 @@ module ExecutorDouble
     executor.stub(:get_path_in_home)
     executor.stub(:execute)
     executor.stub(:execute_interactive)
+    executor.stub(:silent_execute)
     executor.stub(:rm_rf)
     executor.stub(:ask?)
     executor.stub(:clone_repo)

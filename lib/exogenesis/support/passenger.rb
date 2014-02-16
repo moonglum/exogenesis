@@ -32,6 +32,7 @@ class Passenger
     :get_path_in_home,
     :execute,
     :execute_interactive,
+    :silent_execute,
     :rm_rf,
     :ask?,
     :clone_repo,

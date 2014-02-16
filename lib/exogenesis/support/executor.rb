@@ -107,6 +107,12 @@ class Executor
     @output.end_border
   end
 
+  # Execute without printing anything, return the result
+  # (Use instead of `command` to mock it)
+  def silent_execute(command)
+    `#{command}`
+  end
+
   # Wrapper around FileUtils' `rm_rf`
   # First check if the path exists, info if it doesn't exist
   # If it exists, ask if the user really wants to delete it
