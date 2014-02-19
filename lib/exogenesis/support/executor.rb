@@ -48,6 +48,7 @@ class Executor
   end
 
   # Notify the user about something
+  # TODO: It has to be possible to give an info for a started task
   def info(description, information)
     @output.left(description)
     @output.info(information)
@@ -106,6 +107,12 @@ class Executor
     @output.end_border
   end
 
+  # Execute without printing anything, return the result
+  # (Use instead of `command` to mock it)
+  def silent_execute(command)
+    `#{command}`
+  end
+
   # Wrapper around FileUtils' `rm_rf`
   # First check if the path exists, info if it doesn't exist
   # If it exists, ask if the user really wants to delete it
@@ -146,6 +153,11 @@ class Executor
   # Get an expanded PathName for a String
   def get_path_for(path_as_string)
     Pathname.new(File.expand_path(path_as_string))
+  end
+
+  # Check if a command exists
+  def command_exists?(command)
+    system("which #{command} &>/dev/null;")
   end
 
   private
