@@ -6,21 +6,21 @@ class Npm < Passenger
   register_as :npm
   needs :npms
 
-  def setup
-    execute "Install npm", "brew install npm" do |output|
-      raise TaskSkipped.new("Already installed") if output.include? "already installed"
-    end
-  end
-
-  def install
-    npms.each do |package|
-      execute "Install #{package}", "npm install -g #{package}"
-    end
-  end
-
   def up
+    if command_exists? 'npm'
+      skip_task 'Install Node'
+    else
+      execute 'Install Node', 'brew install node'
+    end
+
+    installed = silent_execute('npm ls -g --depth=0').scan(/(\S+)@[\d.]+/).flatten
+
     npms.each do |package|
-      execute "Update #{package}", "npm update -g #{package}" 
+      if installed.include? package
+        execute "Update #{package}", "npm update -g #{package}"
+      else
+        execute "Install #{package}", "npm install -g #{package}"
+      end
     end
   end
 end
