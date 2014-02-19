@@ -7,20 +7,36 @@ class Npm < Passenger
   needs :npms
 
   def up
+    install_node
+
+    npms.each do |package|
+      if installed.include? package
+        update_package(package)
+      else
+        install_package(package)
+      end
+    end
+  end
+
+  private
+
+  def install_node
     if command_exists? 'npm'
       skip_task 'Install Node'
     else
       execute 'Install Node', 'brew install node'
     end
+  end
 
-    installed = silent_execute('npm ls -g --depth=0').scan(/(\S+)@[\d.]+/).flatten
+  def installed
+    @installed ||= silent_execute('npm ls -g --depth=0').scan(/(\S+)@[\d.]+/).flatten
+  end
 
-    npms.each do |package|
-      if installed.include? package
-        execute "Update #{package}", "npm update -g #{package}"
-      else
-        execute "Install #{package}", "npm install -g #{package}"
-      end
-    end
+  def update_package(package)
+    execute "Update #{package}", "npm update -g #{package}"
+  end
+
+  def install_package(package)
+    execute "Install #{package}", "npm install -g #{package}"
   end
 end
