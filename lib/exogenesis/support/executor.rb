@@ -54,15 +54,15 @@ class Executor
     @output.info(information)
   end
 
-  # Create a path starting from the home dir
-  def create_path_in_home(*path)
-    path = File.join(Dir.home, *path)
+  # Create a path
+  # Expects a PathName
+  def mkpath(path)
     FileUtils.mkpath(path)
   end
 
   # Get a path starting from the home dir
   def get_path_in_home(*path)
-    File.join(Dir.home, *path)
+    Pathname.new(File.join(Dir.home, *path))
   end
 
   # Execute a shell script. The description will

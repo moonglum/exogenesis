@@ -28,7 +28,7 @@ class Passenger
     :task_failed,
     :skip_task,
     :info,
-    :create_path_in_home,
+    :mkpath,
     :get_path_in_home,
     :execute,
     :execute_interactive,

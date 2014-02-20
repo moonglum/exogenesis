@@ -11,7 +11,7 @@ module ExecutorDouble
     executor.stub(:task_failed)
     executor.stub(:skip_task)
     executor.stub(:info)
-    executor.stub(:create_path_in_home)
+    executor.stub(:mkdir)
     executor.stub(:get_path_in_home)
     executor.stub(:execute)
     executor.stub(:execute_interactive)
