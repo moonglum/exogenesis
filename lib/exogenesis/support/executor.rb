@@ -130,6 +130,21 @@ class Executor
     end
   end
 
+  # Wrapper around FileUtils' `ln_s`
+  def ln_s(src, dest)
+    if dest.symlink? && dest.readlink == src
+      skip_task "Linking #{src}", "Already linked"
+    else
+      start_task "Linking #{src}"
+      if dest.exist? || dest.symlink?
+        task_failed 'Target already exists'
+      else
+        FileUtils.ln_s(src, dest)
+        task_succeeded
+      end
+    end
+  end
+
   # Ask the user a yes/no question
   def ask?(question)
     start_task("#{question} (y for yes, everything else aborts)")

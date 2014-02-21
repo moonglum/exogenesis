@@ -17,6 +17,7 @@ module ExecutorDouble
     executor.stub(:execute_interactive)
     executor.stub(:silent_execute)
     executor.stub(:rm_rf)
+    executor.stub(:ln_s)
     executor.stub(:ask?)
     executor.stub(:clone_repo)
     executor.stub(:pull_repo)

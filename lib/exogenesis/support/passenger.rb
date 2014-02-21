@@ -33,6 +33,7 @@ class Passenger
     :execute,
     :execute_interactive,
     :silent_execute,
+    :ln_s,
     :rm_rf,
     :ask?,
     :clone_repo,
