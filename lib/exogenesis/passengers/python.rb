@@ -6,26 +6,31 @@ class Python < Passenger
   register_as :python
   needs :pips
 
-  def setup
-    execute "Install Python", "brew install python" do |output|
-      raise TaskSkipped.new("Already installed") if output.include? "already installed"
-    end
-    execute "Link Python", "brew link --overwrite python"
-  end
-
-  def install
-    pips.each do |package|
-      execute "Install #{package}", "pip install --user #{package}" do |output|
-        raise TaskSkipped.new("Already installed") if output.include? "already satisfied"
-      end
-    end
-  end
-
   def up
-    pips.each do |package|
-      execute "Update #{package}", "pip install --user --upgrade #{package}" do |output|
-        raise TaskSkipped.new("Already up to date") if output.include? "already up-to-date"
+    if command_exists? 'pip'
+      skip_task 'Install Python'
+    else
+      execute 'Install Python', 'brew install python'
+    end
+
+    execute 'Link Python', 'brew link --overwrite python' do |output|
+      raise TaskSkipped.new('Already linked') if output.include? 'Already linked'
+    end
+
+    (['pip'] + pips).each do |package|
+      if installed_pips.include? package
+        execute "Upgrade #{package}", "pip install --user --upgrade #{package}" do |output|
+          raise TaskSkipped.new('Already up to date') if output.include? 'already up-to-date'
+        end
+      else
+        execute "Install #{package}", "pip install --user #{package}"
       end
     end
+  end
+
+  private
+
+  def installed_pips
+    @installed_pips ||= silent_execute('pip list').scan(/(\S+) \([\d.]+\)/).flatten
   end
 end
