@@ -30,6 +30,8 @@ class Passenger
     :info,
     :mkpath,
     :get_path_in_home,
+    :get_path_in_working_directory,
+    :get_path_for,
     :execute,
     :execute_interactive,
     :silent_execute,
@@ -38,7 +40,6 @@ class Passenger
     :ask?,
     :clone_repo,
     :pull_repo,
-    :get_path_for,
     :command_exists?
 
   def initialize(config, executor = Executor.instance)

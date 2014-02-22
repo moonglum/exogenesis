@@ -66,6 +66,16 @@ class Executor
     Pathname.new(File.join(Dir.home, *path))
   end
 
+  # Get a path starting from the current working directory
+  def get_path_in_working_directory(*path)
+    Pathname.pwd.join(*path)
+  end
+
+  # Get an expanded PathName for a String
+  def get_path_for(path_as_string)
+    Pathname.new(File.expand_path(path_as_string))
+  end
+
   # Execute a shell script. The description will
   # be printed before the execution. This method
   # will handle failures of the executed script.
@@ -166,11 +176,6 @@ class Executor
   def pull_repo(git_repo, target)
     check_if_git_repo! target
     execute "Pulling #{git_repo}", "cd #{target} && git pull"
-  end
-
-  # Get an expanded PathName for a String
-  def get_path_for(path_as_string)
-    Pathname.new(File.expand_path(path_as_string))
   end
 
   # Check if a command exists

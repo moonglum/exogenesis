@@ -13,6 +13,8 @@ module ExecutorDouble
     executor.stub(:info)
     executor.stub(:mkdir)
     executor.stub(:get_path_in_home)
+    executor.stub(:get_path_in_working_directory)
+    executor.stub(:get_path_for)
     executor.stub(:execute)
     executor.stub(:execute_interactive)
     executor.stub(:silent_execute)
@@ -21,7 +23,6 @@ module ExecutorDouble
     executor.stub(:ask?)
     executor.stub(:clone_repo)
     executor.stub(:pull_repo)
-    executor.stub(:get_path_for)
     executor.stub(:command_exists?)
     executor
   end
