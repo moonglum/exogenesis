@@ -1,6 +1,7 @@
 require "fileutils"
 require "singleton"
 require "open3"
+require "bundler"
 require "exogenesis/support/output"
 require "exogenesis/support/task_skipped"
 
@@ -110,7 +111,9 @@ class Executor
   # Execute without printing anything, return the result
   # (Use instead of `command` to mock it)
   def silent_execute(command)
-    `#{command}`
+    Bundler.with_clean_env do
+      `#{command}`
+    end
   end
 
   # Wrapper around FileUtils' `rm_rf`
