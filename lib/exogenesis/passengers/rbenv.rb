@@ -5,28 +5,31 @@ class Rbenv < Passenger
   register_as :rbenv
   needs :rubies
 
-  def setup
-    execute "Setup rbenv", "git clone https://github.com/sstephenson/rbenv.git ~/.rbenv"
-    execute "Setup ruby-build plugin", "git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build"
+  def up
+    if command_exists? 'rbenv'
+      update_rbenv
+    else
+      install_rbenv
+    end
+    rubies.each { |ruby| install_ruby ruby }
+    execute "Rehash", "rbenv rehash"
   end
 
   def down
     execute_interactive "Teardown", "rm -r ~/.rbenv"
   end
 
-  def install
-    rubies.each { |ruby| install_ruby ruby }
-    execute "Rehash", "rbenv rehash"
+private
+
+  def install_rbenv
+    execute "Install rbenv", "git clone https://github.com/sstephenson/rbenv.git ~/.rbenv"
+    execute "Install ruby-build plugin", "git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build"
   end
 
-  def up
+  def update_rbenv
     execute "Update rbenv", "cd ~/.rbenv && git pull"
     execute "Update ruby-build", "cd ~/.rbenv/plugins/ruby-build && git pull"
-    rubies.each { |ruby| install_ruby ruby }
-    execute "Rehash", "rbenv rehash"
   end
-
-private
 
   def install_ruby(ruby)
     unless installed_versions.include? ruby
