@@ -66,6 +66,16 @@ class Executor
     Pathname.new(File.join(Dir.home, *path))
   end
 
+  # Get a path starting from the current working directory
+  def get_path_in_working_directory(*path)
+    Pathname.pwd.join(*path)
+  end
+
+  # Get an expanded PathName for a String
+  def get_path_for(path_as_string)
+    Pathname.new(File.expand_path(path_as_string))
+  end
+
   # Execute a shell script. The description will
   # be printed before the execution. This method
   # will handle failures of the executed script.
@@ -130,6 +140,21 @@ class Executor
     end
   end
 
+  # Wrapper around FileUtils' `ln_s`
+  def ln_s(src, dest)
+    if dest.symlink? && dest.readlink == src
+      skip_task "Linking #{src}", "Already linked"
+    else
+      start_task "Linking #{src}"
+      if dest.exist? || dest.symlink?
+        task_failed 'Target already exists'
+      else
+        FileUtils.ln_s(src, dest)
+        task_succeeded
+      end
+    end
+  end
+
   # Ask the user a yes/no question
   def ask?(question)
     start_task("#{question} (y for yes, everything else aborts)")
@@ -151,11 +176,6 @@ class Executor
   def pull_repo(git_repo, target)
     check_if_git_repo! target
     execute "Pulling #{git_repo}", "cd #{target} && git pull"
-  end
-
-  # Get an expanded PathName for a String
-  def get_path_for(path_as_string)
-    Pathname.new(File.expand_path(path_as_string))
   end
 
   # Check if a command exists
