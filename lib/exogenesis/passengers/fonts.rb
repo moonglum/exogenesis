@@ -11,7 +11,7 @@ class Fonts < Passenger
 
   def down
     collect_fonts do |file|
-      uninstall_font(File.basename(file))
+      rm_rf target_font_path(file)
     end
   end
 
@@ -35,10 +35,6 @@ class Fonts < Passenger
     else
       skip_task "Copying #{File.basename file}", "Already copied"
     end
-  end
-
-  def uninstall_font(file)
-    execute "Deleting #{File.basename file}", "rm #{target_font_path(file)}"
   end
 
   def target_font_path(file)

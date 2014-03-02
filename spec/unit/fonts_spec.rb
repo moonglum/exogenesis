@@ -43,10 +43,10 @@ describe Fonts do
   describe :down do
 
     it 'should remove the fonts if they are found' do
-      expect(executor).to receive(:execute)
-        .with("Deleting roboto.ttf", "rm #{ENV['HOME']}/Library/Fonts/roboto.ttf")
-      expect(executor).to receive(:execute)
-        .with("Deleting bignoodle.otf", "rm #{ENV['HOME']}/Library/Fonts/bignoodle.otf")
+      expect(executor).to receive(:rm_rf)
+        .with("#{ENV['HOME']}/Library/Fonts/roboto.ttf")
+      expect(executor).to receive(:rm_rf)
+        .with("#{ENV['HOME']}/Library/Fonts/bignoodle.otf")
       subject.down
     end
 
