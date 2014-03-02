@@ -16,14 +16,6 @@ class Ship
 
   def_delegator :@package_managers, :each
 
-  def setup
-    each(&:setup)
-  end
-
-  def install
-    each(&:install)
-  end
-
   def clean
     each(&:clean)
   end

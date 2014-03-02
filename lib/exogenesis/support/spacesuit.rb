@@ -4,17 +4,9 @@ class Spacesuit
     @passenger = passenger
   end
 
-  # Installs the package manager itself
-  def setup
-    wrap :setup
-  end
-
-  # Installs all packages (the list has to be provided in the initialize method)
-  def install
-    wrap :install
-  end
-
-  # Updates the package manager itself and all packages
+  # * Installs the package manager itself
+  # * Installs all packages (the list has to be provided in the initialize method)
+  # * Updates the package manager itself and all packages
   def up
     wrap :up
   end
