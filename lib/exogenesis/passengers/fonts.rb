@@ -3,7 +3,7 @@ require 'exogenesis/support/passenger'
 # Installs and Removes Fonts
 class Fonts < Passenger
   register_as :fonts
-  needs :fonts
+  needs :fonts_path
 
   def up
     install_all_fonts
@@ -11,7 +11,7 @@ class Fonts < Passenger
 
   def down
     collect_fonts do |file|
-      uninstall_font(File.basename(file))
+      rm_rf target_font_path(file)
     end
   end
 
@@ -24,19 +24,21 @@ class Fonts < Passenger
   end
 
   def collect_fonts
-    Dir.glob(File.join(@basepath, "**/*.ttf")).each do |file|
-      yield file
-    end
-    Dir.glob(File.join(@basepath, "**/*.otf")).each do |file|
+    Dir.glob(File.join(fonts_path, "**/*.{ttf,otf}")).each do |file|
       yield file
     end
   end
 
   def install_font(file)
-    execute "Copying #{File.basename file}", "cp #{file} #{File.join(ENV['HOME'], "Library/Fonts", File.basename(file))}"
+    unless File.exist? target_font_path(file)
+      execute "Copying #{File.basename file}", "cp #{file} #{target_font_path(file)}"
+    else
+      skip_task "Copying #{File.basename file}", "Already copied"
+    end
   end
 
-  def uninstall_font(file)
-   execute "Deleting #{File.basename file}", "rm #{File.join(ENV['HOME'], "Library/Fonts", File.basename(file))}"
+  def target_font_path(file)
+    File.join(ENV['HOME'], "Library/Fonts", File.basename(file))
   end
+
 end
