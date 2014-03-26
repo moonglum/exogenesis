@@ -37,10 +37,10 @@ You can find a list of real-world usage of this gem [here](https://github.com/mo
 
 ...and you really like it, you can add the exogenesis badge to the title of your dotfile's README and link to this project:
 
-![badge](badge.png)
+![badge](http://img.shields.io/badge/%F0%9F%9A%80-Created_with_Exogenesis-be1d77.svg)
 
 ```markdown
-[![badge](https://raw.github.com/moonglum/exogenesis/master/badge.png)](https://github.com/moonglum/exogenesis)
+[![badge](http://img.shields.io/badge/%F0%9F%9A%80-Created_with_Exogenesis-be1d77.svg)](https://github.com/moonglum/exogenesis)
 ```
 
 ## Configuration
