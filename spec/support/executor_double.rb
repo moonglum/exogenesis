@@ -4,14 +4,13 @@ require "rspec/mocks"
 # same interface as the original executor
 module ExecutorDouble
   def executor_double
-    executor = double
+    executor = instance_double('Executor')
     executor.stub(:start_section)
     executor.stub(:start_task)
     executor.stub(:task_succeeded)
     executor.stub(:task_failed)
     executor.stub(:skip_task)
     executor.stub(:info)
-    executor.stub(:mkdir)
     executor.stub(:get_path_in_home)
     executor.stub(:get_path_in_working_directory)
     executor.stub(:get_path_for)
