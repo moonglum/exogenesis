@@ -5,6 +5,7 @@ require 'exogenesis/support/passenger'
 class Npm < Passenger
   register_as :npm
   needs :npms
+  with_emoji :cyclone
 
   def up
     install_node

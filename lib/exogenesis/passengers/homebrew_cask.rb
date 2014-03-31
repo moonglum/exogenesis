@@ -5,6 +5,7 @@ class HomebrewCask < Passenger
 
   register_as :homebrew_cask
   needs :casks
+  with_emoji :beer
 
   def up
     tap_cask

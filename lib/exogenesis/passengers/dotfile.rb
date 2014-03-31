@@ -4,6 +4,7 @@ require 'exogenesis/support/passenger'
 class Dotfile < Passenger
   register_as :dotfile
   needs :directory_name
+  with_emoji :house
 
   def up
     each_dotfile do |source, destination|
