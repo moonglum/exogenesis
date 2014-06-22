@@ -1,8 +1,8 @@
-require "spec_helper"
-require "exogenesis/passengers/python"
+require 'spec_helper'
+require 'exogenesis/passengers/python'
 
 describe Python do
-  let(:config) { double}
+  let(:config) { double }
   before { allow(config).to receive(:pips).and_return(required_pips) }
   let(:executor) { executor_double }
 
@@ -14,7 +14,7 @@ describe Python do
       allow(executor).to receive(:silent_execute).with('pip list').and_return(installed_pips)
     end
 
-    let(:required_pips) { ['pygments', 'buildbot'] }
+    let(:required_pips) { %w(pygments buildbot) }
     let(:installed_pips) { "buildbot (0.8.8)\nbuildbot-slave (0.8.8)" }
 
     describe 'installing Python' do

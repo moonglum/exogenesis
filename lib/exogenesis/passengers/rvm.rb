@@ -20,7 +20,7 @@ class Rvm < Passenger
     execute_interactive 'Teardown', 'rvm implode'
   end
 
-private
+  private
 
   def install_or_update_ruby(ruby)
     if installed_versions[ruby].nil?
@@ -35,8 +35,8 @@ private
   end
 
   def update_ruby(old_ruby, new_ruby)
-    execute "Upgrading #{new_ruby}", "rvm upgrade #{old_ruby} #{new_ruby} --force --with-gcc=gcc-4.2" do |output, error_output|
-      raise TaskSkipped.new('Already Up to Date') if error_output.include? 'are the same'
+    execute "Upgrading #{new_ruby}", "rvm upgrade #{old_ruby} #{new_ruby} --force --with-gcc=gcc-4.2" do |_output, error_output|
+      raise TaskSkipped, 'Already Up to Date' if error_output.include? 'are the same'
     end
   end
 

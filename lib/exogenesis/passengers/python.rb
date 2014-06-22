@@ -14,13 +14,13 @@ class Python < Passenger
     end
 
     execute 'Link Python', 'brew link --overwrite python' do |output|
-      raise TaskSkipped.new('Already linked') if output.include? 'Already linked'
+      raise TaskSkipped, 'Already linked' if output.include? 'Already linked'
     end
 
     (['pip'] + pips).each do |package|
       if installed_pips.include? package
         execute "Upgrade #{package}", "pip install --user --upgrade #{package}" do |output|
-          raise TaskSkipped.new('Already up to date') if output.include? 'already up-to-date'
+          raise TaskSkipped, 'Already up to date' if output.include? 'already up-to-date'
         end
       else
         execute "Install #{package}", "pip install --user #{package}"

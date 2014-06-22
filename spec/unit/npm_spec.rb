@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
-require "spec_helper"
-require "exogenesis/passengers/npm"
+require 'spec_helper'
+require 'exogenesis/passengers/npm'
 
 describe Npm do
-  let(:config) { double}
+  let(:config) { double }
   before { allow(config).to receive(:npms).and_return(npms) }
 
   let(:executor) { executor_double }
-  let(:npms) { ['bower', 'buster'] }
+  let(:npms) { %w(bower buster) }
 
   let(:raw_installed) { "/usr/local/share/npm/lib\n├── bower@1.2.8\n├── docco@0.6.3" }
 

@@ -24,9 +24,8 @@ class Spacesuit
   private
 
   def wrap(task_name)
-    if @passenger.respond_to? task_name
-      @passenger.start_section @passenger.class.to_s
-      @passenger.public_send task_name
-    end
+    return unless @passenger.respond_to? task_name
+    @passenger.start_section @passenger.class.to_s
+    @passenger.public_send task_name
   end
 end

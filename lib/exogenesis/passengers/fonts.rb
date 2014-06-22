@@ -24,21 +24,20 @@ class Fonts < Passenger
   end
 
   def collect_fonts
-    Dir.glob(File.join(fonts_path, "**/*.{ttf,otf}")).each do |file|
+    Dir.glob(File.join(fonts_path, '**/*.{ttf,otf}')).each do |file|
       yield file
     end
   end
 
   def install_font(file)
-    unless File.exist? target_font_path(file)
-      execute "Copying #{File.basename file}", "cp #{file} #{target_font_path(file)}"
+    if File.exist? target_font_path(file)
+      skip_task "Copying #{File.basename file}", 'Already copied'
     else
-      skip_task "Copying #{File.basename file}", "Already copied"
+      execute "Copying #{File.basename file}", "cp #{file} #{target_font_path(file)}"
     end
   end
 
   def target_font_path(file)
-    File.join(ENV['HOME'], "Library/Fonts", File.basename(file))
+    File.join(ENV['HOME'], 'Library/Fonts', File.basename(file))
   end
-
 end

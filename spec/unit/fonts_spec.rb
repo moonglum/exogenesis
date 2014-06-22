@@ -1,6 +1,6 @@
-require "tmpdir"
-require "spec_helper"
-require "exogenesis/passengers/fonts"
+require 'tmpdir'
+require 'spec_helper'
+require 'exogenesis/passengers/fonts'
 
 describe Fonts do
 
@@ -8,8 +8,8 @@ describe Fonts do
 
   before {
     temp_dir = Dir.mktmpdir
-    FileUtils.touch File.join(temp_dir, "roboto.ttf")
-    FileUtils.touch File.join(temp_dir, "bignoodle.otf")
+    FileUtils.touch File.join(temp_dir, 'roboto.ttf')
+    FileUtils.touch File.join(temp_dir, 'bignoodle.otf')
     allow(config).to receive(:fonts_path).and_return(temp_dir)
   }
 
@@ -24,18 +24,18 @@ describe Fonts do
 
     it 'should copy fonts if they are not found' do
       expect(executor).to receive(:execute)
-        .with("Copying roboto.ttf", "cp #{config.fonts_path}/roboto.ttf #{ENV['HOME']}/Library/Fonts/roboto.ttf")
+        .with('Copying roboto.ttf', "cp #{config.fonts_path}/roboto.ttf #{ENV['HOME']}/Library/Fonts/roboto.ttf")
       expect(executor).to receive(:execute)
-        .with("Copying bignoodle.otf", "cp #{config.fonts_path}/bignoodle.otf #{ENV['HOME']}/Library/Fonts/bignoodle.otf")
+        .with('Copying bignoodle.otf', "cp #{config.fonts_path}/bignoodle.otf #{ENV['HOME']}/Library/Fonts/bignoodle.otf")
       subject.up
     end
 
     it 'should skip fonts if they are found' do
       expect(File).to receive(:exist?).and_return(true).twice
       expect(executor).to receive(:skip_task)
-        .with("Copying roboto.ttf", "Already copied")
+        .with('Copying roboto.ttf', 'Already copied')
       expect(executor).to receive(:skip_task)
-        .with("Copying bignoodle.otf", "Already copied")
+        .with('Copying bignoodle.otf', 'Already copied')
       subject.up
     end
   end

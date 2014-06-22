@@ -1,9 +1,9 @@
-require "fileutils"
-require "singleton"
-require "open3"
-require "bundler"
-require "exogenesis/support/output"
-require "exogenesis/support/task_skipped"
+require 'fileutils'
+require 'singleton'
+require 'open3'
+require 'bundler'
+require 'exogenesis/support/output'
+require 'exogenesis/support/task_skipped'
 
 # Executor is a Singleton. Get the instance
 # via `Executor.instance`
@@ -31,7 +31,7 @@ class Executor
 
   # Notify the user that the started task
   # was successful.
-  def task_succeeded(further_information = "")
+  def task_succeeded(further_information = '')
     @output.success(further_information)
   end
 
@@ -43,7 +43,7 @@ class Executor
   end
 
   # Notify the user that you have skipped a task
-  def skip_task(description, further_information = "")
+  def skip_task(description, further_information = '')
     @output.left(description)
     @output.skipped(further_information)
   end
@@ -90,7 +90,7 @@ class Executor
 
     output, error_output, exit_status = nil
     Bundler.with_clean_env do
-      Open3.popen3(script) do |stdin, stdout, stderr, process|
+      Open3.popen3(script) do |_stdin, stdout, stderr, process|
         output = stdout.read
         error_output = stderr.read
         exit_status = process.value.exitstatus
@@ -132,18 +132,16 @@ class Executor
   # path: Needs to be a PathName
   def rm_rf(path)
     if path.exist?
-      if ask?("Do you really want to `rm -rf #{path}?`")
-        FileUtils.rm_rf(path)
-      end
+      FileUtils.rm_rf(path) if ask?("Do you really want to `rm -rf #{path}?`")
     else
-      info("Delete `#{path}`", "Already deleted")
+      info("Delete `#{path}`", 'Already deleted')
     end
   end
 
   # Wrapper around FileUtils' `ln_s`
   def ln_s(src, dest)
     if dest.symlink? && dest.readlink == src
-      skip_task "Linking #{src}", "Already linked"
+      skip_task "Linking #{src}", 'Already linked'
     else
       start_task "Linking #{src}"
       if dest.exist? || dest.symlink?
@@ -188,10 +186,10 @@ class Executor
   # Path: A pathname object where you want to pull
   def check_if_git_repo!(path)
     start_task "Checking #{path.basename}"
-    if path.children.one? { |child| child.basename.to_s == ".git" }
+    if path.children.one? { |child| child.basename.to_s == '.git' }
       task_succeeded
     else
-      task_failed "Not a git repository"
+      task_failed 'Not a git repository'
     end
   end
 end

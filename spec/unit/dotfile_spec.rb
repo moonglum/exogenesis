@@ -1,5 +1,5 @@
-require "spec_helper"
-require "exogenesis/passengers/dotfile"
+require 'spec_helper'
+require 'exogenesis/passengers/dotfile'
 
 describe Dotfile do
   let(:directory_name) { 'tilde' }
@@ -10,7 +10,7 @@ describe Dotfile do
 
   subject { Dotfile.new(config, executor) }
 
-  let(:source_directory) { double('SourceDirectory', entries: [source_vimrc] ) }
+  let(:source_directory) { double('SourceDirectory', entries: [source_vimrc]) }
   let(:source_vimrc) { double('SourceVimrc', basename: 'vimrc') }
   let(:target_vimrc) { double('TargetVimrc') }
 
