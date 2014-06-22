@@ -1,5 +1,5 @@
-require "spec_helper"
-require "exogenesis/passengers/git_repo"
+require 'spec_helper'
+require 'exogenesis/passengers/git_repo'
 
 describe GitRepo do
   let(:git_repo) { double('GitRepository') }

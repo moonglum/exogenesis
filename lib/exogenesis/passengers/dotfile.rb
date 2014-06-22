@@ -12,7 +12,7 @@ class Dotfile < Passenger
   end
 
   def down
-    each_dotfile do |source, destination|
+    each_dotfile do |_source, destination|
       rm_rf destination
     end
   end

@@ -1,0 +1,114 @@
+AllCops:
+  Include:
+    - '../**/*.rake'
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+  Exclude:
+    - !ruby/regexp /spec\/setup/
+
+# Avoid parameter lists longer than five parameters.
+ParameterLists:
+  Max: 4
+  CountKeywordArgs: true
+
+# Avoid more than `Max` levels of nesting.
+BlockNesting:
+  Max: 3
+
+# Align with the style guide.
+CollectionMethods:
+  PreferredMethods:
+    collect:  'map'
+    inject:   'reduce'
+    find:     'detect'
+    find_all: 'select'
+
+HashSyntax:
+  Enabled: true
+
+StringLiterals:
+  Enabled: true
+
+Void:
+  Enabled: true
+
+MethodLength:
+  Enabled: false
+
+LineLength:
+  Enabled: false
+
+DotPosition:
+  EnforcedStyle: 'leading'
+
+SpaceInsideHashLiteralBraces:
+  Enabled: true
+
+AlignParameters:
+  Enabled: true
+
+# I don't agree with this
+Blocks:
+  Enabled: false
+
+NumericLiterals:
+  Enabled: true
+
+SpaceInsideBrackets:
+  Enabled: true
+
+WordArray:
+  Enabled: true
+
+Lambda:
+  Enabled: true
+
+RegexpLiteral:
+  Enabled: true
+
+# Don't agree
+ConstantName:
+  Enabled: false
+
+TrivialAccessors:
+  Enabled: true
+  ExactNameMatch: true
+
+Alias:
+  Enabled: true
+
+Loop:
+  Enabled: false
+
+# Do not agree at all
+AndOr:
+  Enabled: false
+
+# This is done by YARD Stick
+Documentation:
+  Enabled: false
+
+# Braces can be really, really useful for clarity
+BracesAroundHashParameters:
+  Enabled: false
+
+# I prefer raise over fail
+SignalException:
+  EnforcedStyle: only_raise
+
+ClassLength:
+  CountComments: false
+  Max: 140
+
+# The suggested style does not match the common ruby way of aligning the content of a hash
+IndentHash:
+  Enabled: false
+
+# This cop seems to not work correctly. Also we don't agree with it.
+FileName:
+  Enabled: false
+
+# Double negations are extremely useful
+DoubleNegation:
+  Enabled: false

@@ -1,4 +1,4 @@
-require "singleton"
+require 'singleton'
 
 # Output is a Singleton. Get the instance
 # via `Output.instance`
@@ -9,23 +9,23 @@ class Output
     @verbose = false
     @center = false
     @decoration = false
-    @success = "Success"
-    @failure = "Failure"
-    @skip = "Skipped"
-    @header_start = ""
-    @header_end = ""
+    @success = 'Success'
+    @failure = 'Failure'
+    @skip = 'Skipped'
+    @header_start = ''
+    @header_end = ''
   end
 
   # Activates fancy output by activating all other
   # options except verbose.
   def fancy
-    self.activate_centering.activate_decoration.activate_utf8
+    activate_centering.activate_decoration.activate_utf8
   end
 
   # Activates fancy output by activating all other
   # options except verbose.
   def self.fancy
-    self.instance.fancy
+    instance.fancy
   end
 
   # Activates the centering of output
@@ -36,7 +36,7 @@ class Output
 
   # Activates the centering of output
   def self.activate_centering
-    self.instance.activate_centering
+    instance.activate_centering
   end
 
   # Activates bold and colored output
@@ -47,7 +47,7 @@ class Output
 
   # Activates bold and colored output
   def self.activate_decoration
-    self.instance.decoration
+    instance.decoration
   end
 
   # Output the additional information for
@@ -60,7 +60,7 @@ class Output
   # Output the additional information for
   # the success method
   def self.verbose
-    self.instance.verbose
+    instance.verbose
   end
 
   # Activate the usage of 'UTF8 Icons'
@@ -71,19 +71,19 @@ class Output
     @header_start = "\u2605  "
     @header_end = " \u2605"
     @border = {
-      :top_left => "\u250C",
-      :top_center => "\u2500",
-      :top_right => "\u2510",
-      :bottom_left => "\u2514",
-      :bottom_center => "\u2500",
-      :bottom_right => "\u2518",
+      top_left: "\u250C",
+      top_center: "\u2500",
+      top_right: "\u2510",
+      bottom_left: "\u2514",
+      bottom_center: "\u2500",
+      bottom_right: "\u2518"
     }
     self
   end
 
   # Activate the usage of 'UTF8 Icons'
   def self.activate_utf8
-    self.instance.activate_utf8
+    instance.activate_utf8
   end
 
   # Print the text as a decorated header
@@ -102,7 +102,7 @@ class Output
   # will be printed
   def success(further_information)
     puts green_bold(" #{@success}")
-    puts further_information if @verbose and further_information != ""
+    puts further_information if @verbose and further_information != ''
   end
 
   # Print the right side with a failure message
@@ -117,7 +117,7 @@ class Output
   # will be printed
   def skipped(further_information)
     puts green_bold(" #{@skip}")
-    puts further_information if @verbose and further_information != ""
+    puts further_information if @verbose and further_information != ''
   end
 
   # Print some arbitrary information on the right
@@ -140,7 +140,7 @@ class Output
       @border[:bottom_right]
   end
 
-private
+  private
 
   # Determine the width of the terminal
   def terminal_width

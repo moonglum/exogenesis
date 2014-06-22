@@ -1,4 +1,4 @@
-require "rspec/mocks"
+require 'rspec/mocks'
 
 # This is a stub you can use in your tests that has the
 # same interface as the original executor

@@ -1,8 +1,8 @@
-require "spec_helper"
-require "exogenesis/passengers/homebrew"
+require 'spec_helper'
+require 'exogenesis/passengers/homebrew'
 
 describe Homebrew do
-  let(:brews) { ['vim', 'chicken'] }
+  let(:brews) { %w(vim chicken) }
 
   let(:config) { double }
   before { allow(config).to receive(:brews).and_return(brews) }
@@ -14,7 +14,7 @@ describe Homebrew do
   describe :up do
     before do
       allow(executor).to receive(:silent_execute).with('brew ls').and_return("  vim\n  emacs")
-      allow(executor).to receive(:silent_execute).with('brew outdated').and_return("")
+      allow(executor).to receive(:silent_execute).with('brew outdated').and_return('')
     end
 
     describe 'set up homebrew' do
@@ -51,7 +51,7 @@ describe Homebrew do
       end
 
       it 'should pass on the options if it has any' do
-        allow(config).to receive(:brews).and_return([ { chicken: ['option'] } ])
+        allow(config).to receive(:brews).and_return([{ chicken: ['option'] }])
         expect(executor).to receive(:execute).with('Installing chicken', /\Abrew install chicken option\s*\z/)
         subject.up
       end
@@ -76,7 +76,7 @@ describe Homebrew do
       end
 
       context 'a package is outdated' do
-        before { allow(executor).to receive(:silent_execute).with('brew outdated').and_return("vim") }
+        before { allow(executor).to receive(:silent_execute).with('brew outdated').and_return('vim') }
 
         it 'should inform the user about the outdated packages' do
           expect(executor).to receive(:info).with('Outdated Brews', 'vim')
