@@ -1,143 +1,87 @@
 require 'singleton'
+require 'megingiard/centered_canvas'
+require 'megingiard/emoji_node'
+require 'megingiard/bold_node'
+require 'megingiard/color_node'
+require 'megingiard/node'
 
-# Output is a Singleton. Get the instance
-# via `Output.instance`
+# Output is a Singleton. Get the instance via `Output.instance`
 class Output
   include Singleton
+  include Megingiard
+
+  WARNING = 'The output of exogenesis is not configurable, the methods for that will be removed in the next version'
 
   def initialize
-    @verbose = false
-    @center = false
-    @decoration = false
-    @success = 'Success'
-    @failure = 'Failure'
-    @skip = 'Skipped'
-    @header_start = ''
-    @header_end = ''
+    @canvas = CenteredCanvas.new(STDOUT)
+    @success_node = EmojiNode.new(:thumbsup)
+    @failure_node = EmojiNode.new(:thumbsdown)
+    @skipped_node = EmojiNode.new(:point_right)
   end
 
-  # Activates fancy output by activating all other
-  # options except verbose.
-  def fancy
-    activate_centering.activate_decoration.activate_utf8
-  end
-
-  # Activates fancy output by activating all other
-  # options except verbose.
   def self.fancy
-    instance.fancy
+    puts WARNING
   end
 
-  # Activates the centering of output
-  def activate_centering
-    @center = true
-    self
-  end
-
-  # Activates the centering of output
   def self.activate_centering
-    instance.activate_centering
+    puts WARNING
   end
 
-  # Activates bold and colored output
-  def activate_decoration
-    @decoration = true
-    self
-  end
-
-  # Activates bold and colored output
   def self.activate_decoration
-    instance.decoration
+    puts WARNING
   end
 
-  # Output the additional information for
-  # the success method
-  def verbose
-    @verbose = false
-    self
-  end
-
-  # Output the additional information for
-  # the success method
-  def self.verbose
-    instance.verbose
-  end
-
-  # Activate the usage of 'UTF8 Icons'
-  def activate_utf8
-    @success = "\u2713"
-    @failure = "\u2717"
-    @skip = "\u219D"
-    @header_start = "\u2605  "
-    @header_end = " \u2605"
-    @border = {
-      top_left: "\u250C",
-      top_center: "\u2500",
-      top_right: "\u2510",
-      bottom_left: "\u2514",
-      bottom_center: "\u2500",
-      bottom_right: "\u2518"
-    }
-    self
-  end
-
-  # Activate the usage of 'UTF8 Icons'
   def self.activate_utf8
-    instance.activate_utf8
+    puts WARNING
   end
 
   # Print the text as a decorated header
-  def decorated_header(text)
-    puts
-    puts bold(center("#{@header_start}#{text}#{@header_end}"))
+  def decorated_header(text, emoji_name)
+    emoji = EmojiNode.new(emoji_name)
+    header = Node.new(emoji, '  ', BoldNode.new(text), ' ', emoji)
+    @canvas.draw_centered_row(header)
   end
 
   # Print the left side of an output
   def left(text)
-    print left_aligned("#{text}:")
+    text_with_colon = Node.new(text, ':')
+    left = ColorNode.new(:white, BoldNode.new(text_with_colon))
+    @canvas.draw_left_column(left)
   end
 
   # Print the right side with a success message
-  # If verbose is active, the further_information
-  # will be printed
-  def success(further_information)
-    puts green_bold(" #{@success}")
-    puts further_information if @verbose and further_information != ''
+  def success(_info)
+    success = Node.new(' ', @success_node)
+    @canvas.draw_right_column(success)
   end
 
   # Print the right side with a failure message
-  # Will always print the further_information
-  def failure(further_information)
-    puts red_bold(" #{@failure}")
-    puts further_information
+  def failure(info)
+    failure = Node.new(' ', info, ' ', @failure_node)
+    @canvas.draw_right_column(failure)
   end
 
   # Print the right side with a skipped message
-  # If verbose is active, the further_information
-  # will be printed
-  def skipped(further_information)
-    puts green_bold(" #{@skip}")
-    puts further_information if @verbose and further_information != ''
+  def skipped(_info)
+    skipped = Node.new(' ', @skipped_node)
+    @canvas.draw_right_column(skipped)
   end
 
   # Print some arbitrary information on the right
-  def info(information)
-    puts " #{information}"
+  def info(info)
+    info_node = Node.new(' ', info)
+    @canvas.draw_right_column(info_node)
   end
 
   # Draw the upper bound of a border
-  def start_border(header)
-    header = " #{header} "
-    puts @border[:top_left] +
-      header.center((terminal_width - 2), @border[:top_center]) +
-      @border[:top_right]
+  def start_border(info)
+    width = (terminal_width - 4 - info.length) / 2
+    puts "\u250C#{("\u2500" * width)} #{info} #{("\u2500" * width)}\u2510"
   end
 
   # Draw the lower bound of a border
   def end_border
-    puts @border[:bottom_left] +
-      (@border[:bottom_center] * (terminal_width - 2)) +
-      @border[:bottom_right]
+    puts "\u2514#{"\u2500" * (terminal_width - 2)}\u2518"
   end
 
   private
@@ -145,35 +89,5 @@ class Output
   # Determine the width of the terminal
   def terminal_width
     Integer(`tput cols`)
-  end
-
-  # Return the text as bold if and only if decoration
-  # is active
-  def bold(text)
-    @decoration ? "\033[1m#{text}\033[0m" : text
-  end
-
-  # Return the text as centered if and only if center
-  # is active
-  def center(text)
-    @center ? text.center(terminal_width) : text
-  end
-
-  # Return the text as left aligned if and only if center
-  # is active
-  def left_aligned(text)
-    @center ? text.rjust(terminal_width / 2) : text
-  end
-
-  # Return the text as green bold if and only if decoration
-  # is active
-  def green_bold(text)
-    @decoration ? "\033[1;32m#{text}\033[0m" : text
-  end
-
-  # Return the text as red bold if and only if decoration
-  # is active
-  def red_bold(text)
-    @decoration ? "\033[1;31m#{text}\033[0m" : text
   end
 end

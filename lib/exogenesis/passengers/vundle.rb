@@ -5,6 +5,7 @@ class Vundle < Passenger
   VUNDLE_REPO = 'git://github.com/gmarik/vundle.git'
 
   register_as :vundle
+  with_emoji :gift
 
   def up
     if vundle_folder.exist?

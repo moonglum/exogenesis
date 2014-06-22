@@ -19,8 +19,8 @@ class Executor
 
   # Start a new output section with a given
   # text
-  def start_section(text)
-    @output.decorated_header(text)
+  def start_section(text, emoji_name)
+    @output.decorated_header(text, emoji_name)
   end
 
   # Notify the user that you started with a

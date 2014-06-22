@@ -19,6 +19,14 @@ class Passenger
     def needs(config_name)
       def_delegator :@config, config_name
     end
+
+    def with_emoji(emoji_name)
+      @emoji_name = emoji_name
+    end
+
+    def emoji_name
+      @emoji_name || :alien
+    end
   end
 
   def_delegators :@executor,

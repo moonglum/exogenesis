@@ -5,6 +5,7 @@ require 'exogenesis/support/passenger'
 class GitRepo < Passenger
   register_as :git_repo
   needs :repos
+  with_emoji :arrow_down
 
   # Clone the Repo if it doesn't exist
   # Pull the Repo if it does

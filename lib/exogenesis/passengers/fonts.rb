@@ -4,6 +4,7 @@ require 'exogenesis/support/passenger'
 class Fonts < Passenger
   register_as :fonts
   needs :fonts_path
+  with_emoji :book
 
   def up
     install_all_fonts

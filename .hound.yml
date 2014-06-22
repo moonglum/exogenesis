@@ -112,3 +112,6 @@ FileName:
 # Double negations are extremely useful
 DoubleNegation:
   Enabled: false
+
+Output:
+  Enabled: false

@@ -4,6 +4,7 @@ require 'exogenesis/support/passenger'
 class Rvm < Passenger
   register_as :rvm
   needs :rubies
+  with_emoji :cyclone
 
   def up
     if command_exists? 'rvm'

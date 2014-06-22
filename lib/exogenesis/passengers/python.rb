@@ -5,6 +5,7 @@ require 'exogenesis/support/passenger'
 class Python < Passenger
   register_as :python
   needs :pips
+  with_emoji :snake
 
   def up
     if command_exists? 'pip'

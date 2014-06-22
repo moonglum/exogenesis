@@ -25,7 +25,7 @@ class Spacesuit
 
   def wrap(task_name)
     return unless @passenger.respond_to? task_name
-    @passenger.start_section @passenger.class.to_s
-    @passenger.public_send task_name
+    @passenger.start_section(@passenger.class.to_s, @passenger.class.emoji_name)
+    @passenger.public_send(task_name)
   end
 end

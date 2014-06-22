@@ -7,6 +7,7 @@ class Homebrew < Passenger
 
   register_as :homebrew
   needs :brews
+  with_emoji :beer
 
   def up
     install_homebrew
