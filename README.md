@@ -82,3 +82,4 @@ Additions of new classes are more than welcome, even if they are complimentary t
 So far, the following people have contributed to the project:
 
 * Bodo Tasche aka @bitboxer
+* Felix Schäfer aka @thegcat
