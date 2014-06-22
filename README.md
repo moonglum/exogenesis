@@ -52,15 +52,6 @@ You can find a list of real-world usage of this gem [here](https://github.com/mo
 [![badge](http://img.shields.io/badge/%F0%9F%9A%80-Created_with_Exogenesis-be1d77.svg)](https://github.com/moonglum/exogenesis)
 ```
 
-## Configuration
-
-You can configure the output of Exogenesis via the `Output` class:
-
-* `Output.activate_centering` centers the output
-* `Output.activate_decoration` makes parts of the output colored and bold
-* `Output.activate_utf8` uses UTF8 'icons' for certain outputs
-* `Output.fancy` activates all options mentioned above at once.
-
 ## The Interface of the classes
 
 Every class has the following methods (with the exception of `initialize` they all take no arguments):

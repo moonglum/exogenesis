@@ -10,11 +10,29 @@ class Output
   include Singleton
   include Megingiard
 
+  WARNING = 'The output of exogenesis is not configurable, the methods for that will be removed in the next version'
+
   def initialize
     @canvas = CenteredCanvas.new(STDOUT)
     @success_node = EmojiNode.new(:thumbsup)
     @failure_node = EmojiNode.new(:thumbsdown)
     @skipped_node = EmojiNode.new(:point_right)
+  end
+
+  def self.fancy
+    puts WARNING
+  end
+
+  def self.activate_centering
+    puts WARNING
+  end
+
+  def self.activate_decoration
+    puts WARNING
+  end
+
+  def self.activate_utf8
+    puts WARNING
   end
 
   # Print the text as a decorated header
