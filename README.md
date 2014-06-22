@@ -1,5 +1,14 @@
 # Exogenesis
 
+| Project         | Exogenesis
+|:----------------|:--------------------------------------------------
+| Homepage        | https://github.com/moonglum/exogenesis
+| CI              | [![Build Status](http://img.shields.io/travis/moonglum/exogenesis.svg)](http://travis-ci.org/moonglum/exogenesis)
+| Code Metrics    | [![Code Climate](http://img.shields.io/codeclimate/github/moonglum/exogenesis.svg)](https://codeclimate.com/github/moonglum/exogenesis) [![Code Climate Coverage](http://img.shields.io/codeclimate/coverage/github/moonglum/exogenesis.svg)](https://codeclimate.com/github/moonglum/exogenesis)
+| Gem Version     | [![Gem Version](http://img.shields.io/gem/v/exogenesis.svg)](http://rubygems.org/gems/exogenesis)
+| Dependencies    | [![Dependency Status](http://img.shields.io/gemnasium/moonglum/exogenesis.svg)](https://gemnasium.com/moonglum/exogenesis)
+
+
 A collection of classes that help you install, update and teardown package managers and other things useful for your dotfiles. It's something like a meta package manager (package manager is the wrong word... still searching for a better one). After setting it up you can do the following:
 
 * `rake up`: Setup, install and update your software
