@@ -1,20 +1,20 @@
 require 'exogenesis/support/passenger'
 
-# Executes shell scripts
+# Executes shell commands
 class Shell < Passenger
   register_as :shell
-  needs :scripts
+  needs :commands
   with_emoji :shell
 
   def up
-    scripts.each do |script|
-      execute_script(script)
+    commands.each do |command|
+      execute_command(command)
     end
   end
 
   private
 
-  def execute_script(script)
-    execute "Executing #{script}", "#{script}"
+  def execute_command(command)
+    execute "Executing command `#{command}`", "#{command}"
   end
 end

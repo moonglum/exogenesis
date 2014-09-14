@@ -3,10 +3,10 @@ require 'exogenesis/passengers/shell'
 
 describe Shell do
   let(:config) { double }
-  let(:scripts) { ['echo "hello world"'] }
+  let(:commands) { ['echo "hello world"'] }
 
   before {
-    allow(config).to receive(:scripts).and_return(scripts)
+    allow(config).to receive(:commands).and_return(commands)
   }
 
   let(:executor) { executor_double }
@@ -16,7 +16,7 @@ describe Shell do
   describe :up do
     it 'should succeed if exit code is equal 0' do
       expect(executor).to receive(:execute)
-        .with('Executing echo "hello world"', 'echo "hello world"')
+        .with('Executing command `echo "hello world"`', 'echo "hello world"')
       subject.up
     end
   end
