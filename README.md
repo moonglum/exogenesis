@@ -74,6 +74,7 @@ Not all package managers will need all of the methods. Just do not implement the
 * **Vundle:** Install/Uninstall/Update Vundle and its packages
 * **GitRepo:** Clone/Pull Git Repos to certain paths
 * **NPM**: Install/Uninstall NPM and its packages
+* **Shell**: Executes commands on the shell
 
 ## Contributing
 
