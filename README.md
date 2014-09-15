@@ -84,3 +84,4 @@ So far, the following people have contributed to the project:
 
 * Bodo Tasche aka @bitboxer
 * Felix Schäfer aka @thegcat
+* Gil Desmarais aka @gill0r
