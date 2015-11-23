@@ -75,6 +75,7 @@ Not all package managers will need all of the methods. Just do not implement the
 * **GitRepo:** Clone/Pull Git Repos to certain paths
 * **NPM**: Install/Uninstall NPM and its packages
 * **Shell**: Executes commands on the shell
+* **VimPlug**: Install/Update plugins with [vim-plug](https://github.com/junegunn/vim-plug)
 
 ## Contributing
 
