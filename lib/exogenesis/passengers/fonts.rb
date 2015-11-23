@@ -34,7 +34,7 @@ class Fonts < Passenger
     if File.exist? target_font_path(file)
       skip_task "Copying #{File.basename file}", 'Already copied'
     else
-      execute "Copying #{File.basename file}", "cp #{file} #{target_font_path(file)}"
+      execute "Copying #{File.basename file}", "cp '#{file}' '#{target_font_path(file)}'"
     end
   end
 

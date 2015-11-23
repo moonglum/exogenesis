@@ -24,9 +24,9 @@ describe Fonts do
 
     it 'should copy fonts if they are not found' do
       expect(executor).to receive(:execute)
-        .with('Copying roboto.ttf', "cp #{config.fonts_path}/roboto.ttf #{ENV['HOME']}/Library/Fonts/roboto.ttf")
+        .with('Copying roboto.ttf', "cp '#{config.fonts_path}/roboto.ttf' '#{ENV['HOME']}/Library/Fonts/roboto.ttf'")
       expect(executor).to receive(:execute)
-        .with('Copying bignoodle.otf', "cp #{config.fonts_path}/bignoodle.otf #{ENV['HOME']}/Library/Fonts/bignoodle.otf")
+        .with('Copying bignoodle.otf', "cp '#{config.fonts_path}/bignoodle.otf' '#{ENV['HOME']}/Library/Fonts/bignoodle.otf'")
       subject.up
     end
 
