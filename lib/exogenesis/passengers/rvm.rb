@@ -32,11 +32,11 @@ class Rvm < Passenger
   end
 
   def install_ruby(ruby)
-    execute "Installing #{ruby}", "rvm install #{ruby} --with-gcc=gcc-4.2"
+    execute "Installing #{ruby}", "rvm install #{ruby}"
   end
 
   def update_ruby(old_ruby, new_ruby)
-    execute "Upgrading #{new_ruby}", "rvm upgrade #{old_ruby} #{new_ruby} --force --with-gcc=gcc-4.2" do |_output, error_output|
+    execute "Upgrading #{new_ruby}", "rvm upgrade #{old_ruby} #{new_ruby} --force" do |_output, error_output|
       raise TaskSkipped, 'Already Up to Date' if error_output.include? 'are the same'
     end
   end
