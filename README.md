@@ -15,7 +15,7 @@ A collection of classes that help you install, update and teardown package manag
 * `rake down`: Remove everything installed by Exogenesis
 * `rake clean`: Run cleanup tasks
 
-It creates a beautiful output if you want it to (see Configuration). For a little [demonstration](http://ascii.io/a/2491) (a little updated) see this asciicast of my `rake install` running on my (already installed :wink:) system.
+It creates a beautiful output if you want it to (see Configuration). For a little [demonstration](http://asciinema.org/a/2491) (a little updated) see this asciinema recording of my `rake install` running on my (already installed :wink:) system.
 
 **Please read the source code of this gem before you use it. I give no guarantee that this will not destroy your computer entirely.**
 
