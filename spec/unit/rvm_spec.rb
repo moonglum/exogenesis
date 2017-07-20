@@ -46,18 +46,18 @@ describe Rvm do
 
     describe 'install or update rubies' do
       it 'should install a missing Ruby' do
-        expect(executor).to receive(:execute).with('Installing ruby-1.9.3', 'rvm install ruby-1.9.3 --with-gcc=gcc-4.2')
+        expect(executor).to receive(:execute).with('Installing ruby-1.9.3', 'rvm install ruby-1.9.3')
         subject.up
       end
 
       it 'should update an installed Ruby' do
-        expect(executor).to receive(:execute).with('Upgrading ruby-2.0.0', 'rvm upgrade ruby-2.0.0-p353 ruby-2.0.0 --force --with-gcc=gcc-4.2')
+        expect(executor).to receive(:execute).with('Upgrading ruby-2.0.0', 'rvm upgrade ruby-2.0.0-p353 ruby-2.0.0 --force')
         subject.up
       end
 
       it 'should skip the update of an installed Ruby if already installed' do
         allow(executor).to receive(:execute)
-          .with('Upgrading ruby-2.0.0', 'rvm upgrade ruby-2.0.0-p353 ruby-2.0.0 --force --with-gcc=gcc-4.2')
+          .with('Upgrading ruby-2.0.0', 'rvm upgrade ruby-2.0.0-p353 ruby-2.0.0 --force')
           .and_yield(nil, "Source and Destination Ruby are the same (ruby-2.0.0-p353)\nError migrating gems.")
 
         expect { subject.up }.to raise_exception(TaskSkipped, 'Already Up to Date')
